@@ -39,7 +39,7 @@ namespace BookStore.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult ReduceToCart(int productId)
+        public IActionResult ReduceToCart(int productId, int quantity, string type = "Normal")
         {
 
             Book? product = _context.Books
@@ -47,12 +47,19 @@ namespace BookStore.Controllers
             if (product != null)
             {
                 Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-                Cart.ReduceItem(product, 1);
+                Cart.ReduceItem(product, quantity);
                 HttpContext.Session.SetJson("cart", Cart);
+                if (type == "ajax")
+                {
+                    return Json(new
+                    {
+                        quantity = Cart.lineCollection.Sum(c => c.Quantity)
+                    });
+                }
             }
             return RedirectToAction("Index");
         }
-        public IActionResult RemoveFromCart(int productId)
+        public IActionResult RemoveFromCart(int productId, string type = "Normal")
         {
             Book? product = _context.Books
             .FirstOrDefault(p => p.Isbn == productId);
@@ -61,6 +68,13 @@ namespace BookStore.Controllers
                 Cart = HttpContext.Session.GetJson<Cart>("cart");
                 Cart.RemoveLine(product);
                 HttpContext.Session.SetJson("cart", Cart);
+                if (type == "ajax")
+                {
+                    return Json(new
+                    {
+                        quantity = Cart.lineCollection.Sum(c => c.Quantity)
+                    });
+                }
             }
             return RedirectToAction("Index");
         }

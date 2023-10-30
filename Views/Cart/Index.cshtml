@@ -31,20 +31,20 @@
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
                                         <div class="input-group-btn">
-                                            <a asp-controller="Cart" asp-action="ReduceToCart" asp-route-productId="@item.Book.Isbn" class="btn btn-sm btn-primary btn-minus">
+                                            <a data-id="@item.Book.Isbn" class="ajax-reduce-to-cart btn btn-sm btn-primary btn-minus">
                                                 <i class="fa fa-minus"></i>
                                             </a>
                                         </div>
                                         <input type="text" class="form-control form-control-sm bg-secondary text-center" value="@item.Quantity">
                                         <div class="input-group-btn">
-                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@item.Book.Isbn" class="btn btn-sm btn-primary btn-plus">
+                                            <a data-id="@item.Book.Isbn" class="ajax-add-to-cart btn btn-sm btn-primary btn-plus">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="align-middle">@(item.Book.Price * item.Quantity) VND</td>
-                                <td class="align-middle"><a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.Book.Isbn" class="btn btn-sm btn-primary"><i class="fa fa-times"></i></a></td>
+                                <td class="align-middle"><a data-id="@item.Book.Isbn" class="ajax-remove-from-cart btn btn-sm btn-primary"><i class="fa fa-times"></i></a></td>
                             </tr>
                         }
                     </tbody>
@@ -111,3 +111,100 @@
     </div>
 </div>
 <!-- Cart End -->
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            $(".ajax-remove-from-cart").click(function () {
+                $.ajax({
+                    url: "/Cart/RemoveFromCart",
+                    data: {
+                        productId: $(this).data("id"),
+                        type: "ajax"
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Xóa sản phẩm thành công',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        $("#cart_count").html(data.quantity);
+                        window.location.href = '/Cart/Index';
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Xóa sản phẩm thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                });
+            });
+            $(".ajax-add-to-cart").click(function () {
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    data: {
+                        productId: $(this).data("id"),
+                        quantity: 1,
+                        type: "ajax"
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        $("#cart_count").html(data.quantity);
+                        window.location.href = '/Cart/Index';
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm giỏ hàng thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                });
+            });
+            $(".ajax-reduce-to-cart").click(function () {
+                $.ajax({
+                    url: "/Cart/ReduceToCart",
+                    data: {
+                        productId: $(this).data("id"),
+                        quantity: 1,
+                        type: "ajax"
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Giảm số lượng thành công',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        $("#cart_count").html(data.quantity);
+                        setTimeout = 2500;
+                        window.location.href = '/Cart/Index';
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Giảm số lượng thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
