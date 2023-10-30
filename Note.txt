@@ -1,0 +1,3 @@
+﻿- Login/Logout/Register
+- Identity/Authentication/Authorize
+- Checkout ( viewbag totalprice & feeship)

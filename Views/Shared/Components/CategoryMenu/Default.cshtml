@@ -1,0 +1,7 @@
+﻿@model IEnumerable<BookCategory>
+<div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+    @foreach (var item in Model)
+    {
+        <a asp-controller="Product" asp-action="ProductByCategory" asp-route-categoryId="@item.Id" class="nav-item nav-link">@item.Name</a>
+    }
+</div>
