@@ -22,7 +22,7 @@
                             <th>Remove</th>
                         </tr>
                     </thead>
-                    <tbody class="align-middle">
+                    <tbody class="ajax-cart align-middle">
                         @foreach (var item in Model.lineCollection)
                         {
                             <tr>
@@ -123,15 +123,8 @@
                         type: "ajax"
                     },
                     success: function (data) {
-                        console.log(data);
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Xóa sản phẩm thành công',
-                            showConfirmButton: false,
-                            timer: 2500
-                        });
+                        location.reload();
                         $("#cart_count").html(data.quantity);
-                        window.location.href = '/Cart/Index';
                     },
                     error: function () {
                         Swal.fire({
@@ -153,15 +146,8 @@
                         type: "ajax"
                     },
                     success: function (data) {
-                        console.log(data);
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thêm giỏ hàng thành công',
-                            showConfirmButton: false,
-                            timer: 2500
-                        });
+                        location.reload();
                         $("#cart_count").html(data.quantity);
-                        window.location.href = '/Cart/Index';
                     },
                     error: function () {
                         Swal.fire({
@@ -183,16 +169,8 @@
                         type: "ajax"
                     },
                     success: function (data) {
-                        console.log(data);
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Giảm số lượng thành công',
-                            showConfirmButton: false,
-                            timer: 2500
-                        });
+                        location.reload();
                         $("#cart_count").html(data.quantity);
-                        setTimeout = 2500;
-                        window.location.href = '/Cart/Index';
                     },
                     error: function () {
                         Swal.fire({
@@ -205,6 +183,7 @@
                     }
                 });
             });
+
         });
     </script>
 }

@@ -2,21 +2,19 @@
 
 namespace BookStore.Controllers
 {
+    [Route("Identity/Account")]
     public class AccountController : Controller
     {
-        public IActionResult Index()
+        [Route("Login")]
+        public IActionResult Login(string username, string password)
         {
             return View();
         }
-        public IActionResult Login()
+        bool CheckLogin(string username, string password)
         {
-            return View();
+            return true;
         }
-		public IActionResult CheckLogin(string username, string password)
-		{
-			return RedirectToAction("Index","Home");
-		}
-		//public IActionResult Logout
-		//public IActionResult Register
-	}
+        //public IActionResult Logout
+        //public IActionResult Register
+    }
 }
