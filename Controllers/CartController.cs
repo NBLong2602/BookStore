@@ -1,9 +1,11 @@
 ﻿using BookStore.Infrastructure;
 using BookStore.Models;
+using BookStore.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
+    [Authentication]
     public class CartController : Controller
     {
         public Cart? Cart { get; set; }

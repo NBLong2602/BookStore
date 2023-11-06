@@ -9,12 +9,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BookStoreContext>(option => option.UseSqlServer
     (builder.Configuration.GetConnectionString("dbBookStore")));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(option =>
-{
-    option.Cookie.HttpOnly = true;
-    option.Cookie.IsEssential = true;
-});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +31,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

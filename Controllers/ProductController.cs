@@ -1,9 +1,6 @@
-﻿using Azure;
-using BookStore.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Printing;
 using X.PagedList;
 
 namespace BookStore.Controllers
@@ -16,12 +13,13 @@ namespace BookStore.Controllers
         {
             _context = ctx;
         }
+        
         public IActionResult AllProduct(int? page)
         {
             int pageSize = 12;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var lstProduct = _context.Books.AsNoTracking().OrderBy(x => x.BookName);
-            PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+			PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
             return View(lst);
         }
         public IActionResult ProductByCategory(int categoryId, int? page)
@@ -29,7 +27,7 @@ namespace BookStore.Controllers
             int pageSize = 12;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var lstProduct = _context.Books.AsNoTracking().Where(x => x.BookCategoryId == categoryId).OrderBy(x => x.PublishYear);
-            PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+			PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
             ViewBag.categoryId = categoryId;
             return View("AllProduct", lst);
         }
@@ -50,7 +48,7 @@ namespace BookStore.Controllers
                 int pageSize = 12;
                 int pageNumber = page == null || page < 0 ? 1 : page.Value;
                 var lstProduct = _context.Books.Where(x => x.BookName.Contains(keywords));
-                PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+				PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
                 return View("AllProduct", lst);
             }
 

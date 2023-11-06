@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper - Bootstrap Shop Template</title>
+    <title>BookStore</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -132,8 +132,20 @@
                             <a href="#" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="#" class="nav-item nav-link">Login</a>
-                            <a href="#" class="nav-item nav-link">Register</a>
+                            @using Microsoft.AspNetCore.Http
+                            @{
+                                var nameUser = Context.Session.GetString("UserName");
+                                if (nameUser != null)
+                                {
+                                    <p class="nav-item nav-link">Hi @nameUser </p>
+                                    <a asp-controller="Account" asp-action="Login" class="nav-item nav-link" style="display: none;">Login</a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Account" asp-action="Login" class="nav-item nav-link">Login</a>
+                                }
+                            }
+                            <a asp-controller="Account" asp-action="Logout" class="nav-item nav-link">Logout</a>
                         </div>
                     </div>
                 </nav>

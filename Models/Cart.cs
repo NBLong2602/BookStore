@@ -43,6 +43,11 @@
             lineCollection.RemoveAll(l => l.Book.Isbn == product.Isbn);
         public decimal ComputeTotalValue() =>
             (decimal)lineCollection.Sum(e => e.Book?.Price * e.Quantity);
+        public static string ConvertToVND(decimal Value)
+        {
+            decimal vndAmount = Value;
+            return vndAmount.ToString("N0") + " VND"; // Định dạng số tiền VND với dấu phân cách hàng nghìn
+        }
         public void Clear() => lineCollection.Clear();
     }
     public class CartLine
