@@ -1,4 +1,5 @@
 ﻿using BookStore.Models;
+using BookStore.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -31,6 +32,7 @@ namespace BookStore.Controllers
             ViewBag.categoryId = categoryId;
             return View("AllProduct", lst);
         }
+        [AdminAuthorize]
         public IActionResult ProductDetail(int productId)
         {
             var product = _context.Books.Where(x => x.Isbn == productId).FirstOrDefault();

@@ -28,20 +28,34 @@ namespace BookStore.Controllers
 		[HttpPost]
 		public IActionResult Login(Account account)
 		{
-			if (HttpContext.Session.GetString("Username") == null)
+			if (HttpContext.Session.GetString("UserId") == null)
 			{
 				var u = _context.Accounts.Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password))
 					.FirstOrDefault();
 				if (u != null)
 				{
 					HttpContext.Session.SetString("UserName", u.Username.ToString());
-					return RedirectToAction("Index", "Home");
+                    HttpContext.Session.SetString("UserId", u.CustomerId.ToString());
+					string sessionId = HttpContext.Session.GetString("UserId").ToString();
+                    int Adminrole = _context.Customers.Count(x => x.Id == int.Parse(sessionId) && x.CustomerTypeId == 1);
+					if(Adminrole > 0)
+					{
+						HttpContext.Session.SetString("AdRole", "Admin");
+						//return RedirectToAction("action", "controller", new { area = "area" });
+					}
+					else
+					{
+                        HttpContext.Session.SetString("AdRole", "User");
+                    }
+                    return RedirectToAction("Index", "Home");
 				}
 			}
 			return View();
 		}
 		public IActionResult Logout(){
             HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("AdRole");
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
