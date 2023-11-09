@@ -10,17 +10,38 @@ namespace BookStore.Controllers
     {
         public Cart? Cart { get; set; }
         private readonly BookStoreContext _context;
-
+        decimal _feeShip = 50000;
+        decimal _itemPrice = 0;
+        decimal _totalPrice = 0;
         public CartController(BookStoreContext ctx)
         {
             _context = ctx;
         }
         public IActionResult Index()
         {
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-            HttpContext.Session.SetJson("cart", Cart);
-            return View("Index", Cart);
+            ViewBag.feeShip = _feeShip;
+            ViewBag.itemPrice = _itemPrice;
+            ViewBag.totalPrice = _totalPrice;
+            Cart = HttpContext.Session.GetJson<Cart>("cart");
+            return View(Cart);
         }
+        public IActionResult Checkout()
+        {
+            ViewBag.feeShip = _feeShip;
+            ViewBag.itemPrice = _itemPrice;
+            ViewBag.totalPrice = _totalPrice;
+            Cart = HttpContext.Session.GetJson<Cart>("cart");
+            if (Cart.lineCollection.Sum(c => c.Quantity)==0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(Cart);
+            }
+            
+        }
+        //public IActionResult Payment
         public IActionResult AddToCart(int productId, int quantity, string type = "Normal")
         {
             Book? product = _context.Books
@@ -30,7 +51,7 @@ namespace BookStore.Controllers
                 Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
                 Cart.AddItem(product, quantity);
                 HttpContext.Session.SetJson("cart", Cart);
-                if(type == "ajax")
+                if (type == "ajax")
                 {
                     return Json(new
                     {
@@ -80,14 +101,6 @@ namespace BookStore.Controllers
             }
             return RedirectToAction("Index");
         }
-        public IActionResult Checkout()
-        {
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-            HttpContext.Session.SetJson("cart", Cart);
-            return View(Cart);
-        }
-        //public IActionResult Payment
-
 
     }
 }

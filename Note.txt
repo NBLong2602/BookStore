@@ -1,3 +1,2 @@
 ﻿- Register
-- AdminAuthorize không hoạt động hoặc lỗi (logic ? / setting in program.cs ?)
 - Checkout ( viewbag totalprice & feeship)

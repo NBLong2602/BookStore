@@ -1,9 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutStore.cshtml";
-    decimal totalPrice = 0;
-    decimal itemPrice = 0;
-    decimal feeShip = 0;
 }
 @model Cart
 <!-- Cart Start -->
@@ -12,6 +9,8 @@
         <div class="col-lg-8 table-responsive mb-5">
             @if (Model?.lineCollection.Count > 0)
             {
+                ViewBag.itemPrice = Model.ComputeTotalValue();
+                ViewBag.totalPrice = ViewBag.itemPrice + ViewBag.feeShip;
                 <table class="table table-bordered text-center mb-0">
                     <thead class="bg-secondary text-dark">
                         <tr>
@@ -49,15 +48,10 @@
                         }
                     </tbody>
                 </table>
-                @if (Model.lineCollection.Count > 0)
-                {
-                    feeShip = 50000;
-                    itemPrice = Model.ComputeTotalValue();
-                    totalPrice = itemPrice + feeShip;
-                }
             }
             else
             {
+                ViewBag.feeShip = 0;
                 <div class="container-fluid mb-5">
                     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
                         <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ Hàng Của Bạn Đang Trống</h1>
@@ -85,19 +79,17 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3 pt-1">
                         <h6 class="font-weight-medium">Subtotal</h6>
-                        <h6 class="font-weight-medium">@Cart.ConvertToVND(itemPrice)</h6>
+                        <h6 class="font-weight-medium">@Cart.ConvertToVND(ViewBag.itemPrice)</h6>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">@Cart.ConvertToVND(feeShip)</h6>
-
-
+                        <h6 class="font-weight-medium">@Cart.ConvertToVND(ViewBag.feeShip)</h6>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">@Cart.ConvertToVND(totalPrice)</h5>
+                        <h5 class="font-weight-bold">@Cart.ConvertToVND(ViewBag.totalPrice)</h5>
                     </div>
                     <a asp-controller="Cart" asp-action="Checkout" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
                 </div>
