@@ -31,7 +31,7 @@ namespace BookStore.Controllers
             ViewBag.itemPrice = _itemPrice;
             ViewBag.totalPrice = _totalPrice;
             Cart = HttpContext.Session.GetJson<Cart>("cart");
-            if (Cart.lineCollection.Sum(c => c.Quantity)==0)
+            if (Cart == null)
             {
                 return RedirectToAction("Index");
             }

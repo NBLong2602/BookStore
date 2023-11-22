@@ -1,2 +1,2 @@
-﻿- Register
-- Checkout ( viewbag totalprice & feeship)
+﻿- Register ( check trùng username, email)
+- Profile
