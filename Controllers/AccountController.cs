@@ -68,16 +68,15 @@ namespace BookStore.Controllers
                 Gender = true,
                 Email = viewModel.Email
             };
+            //Check trùng Mail...
             _context.Customers.Add(newCustomer);
             _context.SaveChanges();
-            //Get Id newCustomer
-            var newCustomerId = newCustomer.Id;
             //Add new Account with Id newCustomer
             var newAccount = new Account
             {
                 Username = viewModel.Username,
                 Password = viewModel.Password,
-                CustomerId = newCustomerId
+                CustomerId = newCustomer.Id
             };
             _context.Accounts.Add(newAccount);
             _context.SaveChanges();
