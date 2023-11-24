@@ -32,7 +32,6 @@ namespace BookStore.Controllers
             ViewBag.categoryId = categoryId;
             return View("AllProduct", lst);
         }
-        [AdminAuthorize]
         public IActionResult ProductDetail(int productId)
         {
             var product = _context.Books.Where(x => x.Isbn == productId).FirstOrDefault();
