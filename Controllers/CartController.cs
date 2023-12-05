@@ -2,6 +2,7 @@
 using BookStore.Models;
 using BookStore.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Controllers
 {
@@ -31,17 +32,17 @@ namespace BookStore.Controllers
             ViewBag.itemPrice = _itemPrice;
             ViewBag.totalPrice = _totalPrice;
             Cart = HttpContext.Session.GetJson<Cart>("cart");
-            if (Cart == null)
-            {
-                return RedirectToAction("Index");
-            }
-            else
+            // Kiểm tra xem cart có tồn tại và có ít nhất một CartLine không
+            if (Cart != null)
             {
                 return View(Cart);
             }
-            
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
         }
-        //public IActionResult Payment
         public IActionResult AddToCart(int productId, int quantity, string type = "Normal")
         {
             Book? product = _context.Books
@@ -59,12 +60,10 @@ namespace BookStore.Controllers
                     });
                 }
             }
-
             return RedirectToAction("Index");
         }
         public IActionResult ReduceToCart(int productId, int quantity, string type = "Normal")
         {
-
             Book? product = _context.Books
             .FirstOrDefault(p => p.Isbn == productId);
             if (product != null)

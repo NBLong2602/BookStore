@@ -24,7 +24,13 @@
                 var nameUser = Context.Session.GetString("UserName");
                 if (nameUser != null)
                 {
-                    <a asp-controller="User" asp-action="Purchase" class="nav-item nav-link">Hi @nameUser </a>
+                    <div class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Hi @nameUser</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a asp-controller="User" asp-action="Profile" class="dropdown-item">Profile</a>
+                            <a asp-controller="User" asp-action="Purchase" class="dropdown-item">Purchase</a>
+                        </div>
+                    </div>
                 }
                 else
                 {

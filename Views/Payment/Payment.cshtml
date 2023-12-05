@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Payment";
+    ViewData["PageHeader"] = "Checkout";
+    Layout = "~/Views/Shared/_LayoutStore.cshtml";
+}
+
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <div class="container-fluid mb-5">
+                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                    <h1 class="font-weight-semi-bold text-uppercase mb-3">@ViewBag.ResutlPayment</h1>
+                    <div class="input-group-append">
+                        <a asp-controller="Product" asp-action="AllProduct" class="btn btn-primary">Đi Tới Trang Sản Phẩm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

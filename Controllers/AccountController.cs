@@ -61,26 +61,37 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult Register(CustomerAccountViewModel viewModel)
         {
-            //Add new Customer
-            var newCustomer = new Customer
+
+            //Check trùng Mail & Username
+            int checkEmail = _context.Customers.Count(x => x.Email == viewModel.Email);
+            int checkUsername = _context.Accounts.Count(x => x.Username == viewModel.Username);
+            if (checkEmail == 0 && checkUsername == 0)
             {
-                CustomerTypeId = 2,
-                Gender = true,
-                Email = viewModel.Email
-            };
-            //Check trùng Mail...
-            _context.Customers.Add(newCustomer);
-            _context.SaveChanges();
-            //Add new Account with Id newCustomer
-            var newAccount = new Account
+                //Add new Customer
+                var newCustomer = new Customer
+                {
+                    CustomerTypeId = 2,
+                    Gender = true,
+                    Email = viewModel.Email
+                };
+                _context.Customers.Add(newCustomer);
+                _context.SaveChanges();
+                //Add new Account with Id newCustomer
+                var newAccount = new Account
+                {
+                    Username = viewModel.Username,
+                    Password = viewModel.Password,
+                    CustomerId = newCustomer.Id
+                };
+                _context.Accounts.Add(newAccount);
+                _context.SaveChanges();
+                return RedirectToAction("Login");
+            }
+            else
             {
-                Username = viewModel.Username,
-                Password = viewModel.Password,
-                CustomerId = newCustomer.Id
-            };
-            _context.Accounts.Add(newAccount);
-            _context.SaveChanges();
-            return RedirectToAction("Login");
+                ViewBag.Message = "Đăng ký trùng email hoặc username";
+                return View();
+            }
         }
 
         public IActionResult Logout()
