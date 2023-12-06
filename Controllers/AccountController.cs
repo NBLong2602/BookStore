@@ -1,6 +1,7 @@
 ﻿using BookStore.Models;
 using BookStore.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Controllers
 {
@@ -59,37 +60,53 @@ namespace BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(CustomerAccountViewModel viewModel)
+        public async Task<IActionResult> Register(CustomerAccountViewModel viewModel)
         {
+            //Check trùng Mail & Username
+            bool checkEmail = await _context.Customers.AnyAsync(x => x.Email == viewModel.Email);
+            bool checkUsername = await _context.Accounts.AnyAsync(x => x.Username == viewModel.Username);
 
-            //Check trùng Mail & Username
-            int checkEmail = _context.Customers.Count(x => x.Email == viewModel.Email);
-            int checkUsername = _context.Accounts.Count(x => x.Username == viewModel.Username);
-            if (checkEmail == 0 && checkUsername == 0)
+            if (checkEmail == false && checkUsername == false)
             {
-                //Add new Customer
-                var newCustomer = new Customer
+                using (var transaction = _context.Database.BeginTransaction())
                 {
-                    CustomerTypeId = 2,
-                    Gender = true,
-                    Email = viewModel.Email
-                };
-                _context.Customers.Add(newCustomer);
-                _context.SaveChanges();
-                //Add new Account with Id newCustomer
-                var newAccount = new Account
-                {
-                    Username = viewModel.Username,
-                    Password = viewModel.Password,
-                    CustomerId = newCustomer.Id
-                };
-                _context.Accounts.Add(newAccount);
-                _context.SaveChanges();
-                return RedirectToAction("Login");
+                    try
+                    {
+                        // Add new Customer
+                        var newCustomer = new Customer
+                        {
+                            CustomerTypeId = 2,
+                            Gender = true,
+                            Email = viewModel.Email
+                        };
+                        _context.Customers.Add(newCustomer);
+                        await _context.SaveChangesAsync();
+
+                        // Add new Account with Id newCustomer
+                        var newAccount = new Account
+                        {
+                            Username = viewModel.Username,
+                            Password = viewModel.Password,
+                            CustomerId = newCustomer.Id
+                        };
+                        _context.Accounts.Add(newAccount);
+                        await _context.SaveChangesAsync();
+
+                        // Commit transaction if all operations succeed
+                        transaction.Commit();
+                        return RedirectToAction("Login");
+                    }
+                    catch (Exception)
+                    {
+                        // Rollback transaction if there is an exception
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
             else
             {
-                ViewBag.Message = "Đăng ký trùng email hoặc username";
+                ViewBag.Message = "Đăng ký trùng email hoặc username";
                 return View();
             }
         }
