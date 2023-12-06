@@ -48,20 +48,17 @@ namespace BookStore.Controllers
         }
         private async Task AddOrderDetailAsync(OrderInfo orderInfo, Cart cart, string formattedTime)
         {
-            foreach (var cartLine in cart.lineCollection)
+            var orderDetails = cart.lineCollection.Select(cartLine => new OrderDetail
             {
-                int quantity = cartLine.Quantity;
-                int Ibsn = cartLine.Book.Isbn;
-                var orderDetail = new OrderDetail
-                {
-                    BookIsbn = Ibsn,
-                    OrderId = orderInfo.Id,
-                    TransactionDate = formattedTime,
-                    Quantity = quantity
-                };
-                _context.OrderDetails.Add(orderDetail);
-            }
+                BookIsbn = cartLine.Book.Isbn,
+                OrderId = orderInfo.Id,
+                TransactionDate = formattedTime,
+                Quantity = cartLine.Quantity
+            }).ToList();
+
+            _context.OrderDetails.AddRange(orderDetails);
             await _context.SaveChangesAsync();
         }
+
     }
 }
