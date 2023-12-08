@@ -12,13 +12,23 @@ namespace BookStore.Controllers
         {
             _context = ctx;
         }
-        public async Task<IActionResult> Payment()
+
+        //public IActionResult Index()
+        //{
+        //    string notification = TempData["ResutlPayment"] as string;
+        //    ViewBag.ResutlPayment = notification;
+        //    TempData.Remove("ResutlPayment");
+        //    return View();
+        //}
+        [HttpPost]
+        public async Task<IActionResult> Index(IFormCollection form)
         {
             Cart = HttpContext.Session.GetJson<Cart>("cart");
+            string? Note = form["note"];
             // Kiểm tra xem cart có tồn tại và có ít nhất một CartLine không
             if (Cart == null || !Cart.lineCollection.Any())
             {
-                ViewBag.ResutlPayment = "Đặt Hàng Thất Bại";
+                return RedirectToAction("PaymentFalse");
             }
             else
             {
@@ -36,29 +46,36 @@ namespace BookStore.Controllers
                     };
                     _context.OrderInfos.Add(orderInfo);
                     await _context.SaveChangesAsync();
-                    await AddOrderDetailAsync(orderInfo, Cart, formattedTime);
-                    ViewBag.ResutlPayment = "Đặt Hàng Thành Công";
+                    await AddOrderDetailAsync(orderInfo, Cart, formattedTime, Note);
+                    return RedirectToAction("PaymentSuccess");  
                 }
                 else
                 {
-                    ViewBag.ResutlPayment = "Đặt Hàng Thất Bại";
+                    return RedirectToAction("PaymentFalse");
                 }
             }
-            return View();
         }
-        private async Task AddOrderDetailAsync(OrderInfo orderInfo, Cart cart, string formattedTime)
+        private async Task AddOrderDetailAsync(OrderInfo orderInfo, Cart cart, string formattedTime,string note)
         {
             var orderDetails = cart.lineCollection.Select(cartLine => new OrderDetail
             {
                 BookIsbn = cartLine.Book.Isbn,
                 OrderId = orderInfo.Id,
                 TransactionDate = formattedTime,
-                Quantity = cartLine.Quantity
+                Quantity = cartLine.Quantity,
+                Note = note
             }).ToList();
-
             _context.OrderDetails.AddRange(orderDetails);
             await _context.SaveChangesAsync();
         }
-
+        public ActionResult PaymentSuccess()
+        {
+            HttpContext.Session.SetJson("cart", null);
+            return View();
+        }
+        public ActionResult PaymentFalse()
+        {
+            return View();
+        }
     }
 }

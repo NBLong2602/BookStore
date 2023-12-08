@@ -32,7 +32,6 @@ namespace BookStore.Controllers
             ViewBag.itemPrice = _itemPrice;
             ViewBag.totalPrice = _totalPrice;
             Cart = HttpContext.Session.GetJson<Cart>("cart");
-            // Kiểm tra xem cart có tồn tại và có ít nhất một CartLine không
             if (Cart != null)
             {
                 return View(Cart);
@@ -41,7 +40,6 @@ namespace BookStore.Controllers
             {
                 return RedirectToAction("Index");
             }
-
         }
         public IActionResult AddToCart(int productId, int quantity, string type = "Normal")
         {

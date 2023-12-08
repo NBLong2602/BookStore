@@ -49,6 +49,7 @@
             return vndAmount.ToString("N0") + " VND"; // Định dạng số tiền VND với dấu phân cách hàng nghìn
         }
         public void Clear() => lineCollection.Clear();
+        public string? Note { get; set; }
     }
     public class CartLine
     {

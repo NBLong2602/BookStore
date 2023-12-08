@@ -17,7 +17,7 @@ namespace BookStore.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("Username") == null)
+            if (HttpContext.Session.GetString("UserId") == null)
             {
                 return View();
             }

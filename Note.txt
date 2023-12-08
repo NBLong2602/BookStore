@@ -1,3 +1,3 @@
 ﻿- Profile
-- Payment
+- Lấy viewbag resultPayment từ http post sang htpp get
 - Purchase
