@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookStore.Models.Authentication;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
+    [Authentication]
     public class UserController : Controller
     {
         public IActionResult Purchase()

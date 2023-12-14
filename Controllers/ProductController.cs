@@ -1,7 +1,9 @@
-﻿using BookStore.Models;
+﻿using Azure;
+using BookStore.Models;
 using BookStore.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using X.PagedList;
 
 namespace BookStore.Controllers
@@ -9,6 +11,11 @@ namespace BookStore.Controllers
     public class ProductController : Controller
     {
         private readonly BookStoreContext _context;
+        public class PriceRange
+        {
+            public long Min {  get; set; }
+            public long Max { get; set; }
+        }
 
         public ProductController(BookStoreContext ctx)
         {
@@ -39,7 +46,7 @@ namespace BookStore.Controllers
             return View(product);
         }
         [HttpPost]
-        public async Task<IActionResult> Search(string keywords, int? page)
+        public IActionResult Search(string keywords, int? page)
         {
             if (keywords == null)
             {
@@ -50,10 +57,33 @@ namespace BookStore.Controllers
                 int pageSize = 12;
                 int pageNumber = page == null || page < 0 ? 1 : page.Value;
                 var lstProduct = _context.Books.Where(x => x.BookName.Contains(keywords));
-				PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+                PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
                 return View("AllProduct", lst);
             }
 
         }
+        [HttpPost]
+        public IActionResult GetFilteredProduct([FromBody] FilterDataProduct filter,int? page)
+        {
+            int pageSize = 12;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var lstProduct = _context.Books.ToList();
+            if (filter.PriceRange != null && filter.PriceRange.Count>0 && !filter.PriceRange.Contains("all"))
+            {
+                List<PriceRange> priceRanges = new List<PriceRange>();
+                foreach(var range in filter.PriceRange)
+                {
+                    var value = range.Split("-").ToArray();
+                    PriceRange priceRange = new PriceRange();
+                    priceRange.Min = Int64.Parse(value[0]);
+                    priceRange.Max = Int64.Parse(value[1]);
+                    priceRanges.Add(priceRange);
+                }
+                lstProduct = lstProduct.Where(p=>priceRanges.Any(r=>p.Price>=r.Min && p.Price<=r.Max)).ToList();   
+            }
+            PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+            return PartialView("_ReturnProductByFilter", lst);
+        }
+
     }
 }
