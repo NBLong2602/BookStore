@@ -77,7 +77,9 @@ namespace BookStore.Controllers
                         {
                             CustomerTypeId = 2,
                             Gender = true,
-                            Email = viewModel.Email
+                            Email = viewModel.Email,
+                            Phone = viewModel.Phone,
+                            FullName = viewModel.FullName
                         };
                         _context.Customers.Add(newCustomer);
                         await _context.SaveChangesAsync();

@@ -41,10 +41,13 @@
                         </div>
                     </div>
                 </div>
+
                 @foreach (var item in Model)
                 {
                     <partial name="_Product" model="item" />
                 }
+
+
                 <!-- Pagination Start -->
                 <div class="col-12 pb-1">
                     <nav aria-label="Page navigation">

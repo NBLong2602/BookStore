@@ -1,24 +1,46 @@
-﻿using BookStore.Models.Authentication;
+﻿using BookStore.Models;
+using BookStore.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BookStore.Controllers
 {
     [Authentication]
     public class UserController : Controller
     {
+        private readonly BookStoreContext _context;
+
+        public UserController(BookStoreContext ctx)
+        {
+            _context = ctx;
+        }
+        public IActionResult Profile()
+        {
+            int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId").ToString());
+            var ProfileUser = _context.Customers.Where(c => c.Id.Equals(sessionUserId)).FirstOrDefault();
+            return View(ProfileUser);
+        }
         public IActionResult Purchase()
         {
             return View();
         }
-
-        //public IActionResult Purchase() - Order History
-        //[Route("/account")]
-        //[Route("/Profile")]
-        public IActionResult Profile()
+        public IActionResult Address()
         {
             return View();
         }
-        //public IActionResult EditProfile()
+        public IActionResult Payment()
+        {
+            return View();
+        }
+        public IActionResult EditProfile()
+        {
+            return View();
+        }
+        //public IActionResult Purchase() - Order History
+        //[Route("/account")]
+        //[Route("/Profile")]
+
+        //
         //[Route("/Address")]
         //public IActionResult Address()
         //[Route("/Payment")]

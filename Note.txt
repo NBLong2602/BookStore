@@ -1,3 +1,2 @@
-﻿- Return html productbyfilter (id="filtered-products")
-- Profile
+﻿- Profile
 - Purchase

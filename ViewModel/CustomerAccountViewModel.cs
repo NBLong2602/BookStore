@@ -11,6 +11,8 @@ namespace BookStore.ViewModel
         public int CustomerTypeId { get; set; }
         public bool Gender { get; set; }
         public string Email { get; set; }
+        public string Phone { get; set; }
+        public string FullName { get; set; }
         // ...
 
         // Constructor để khởi tạo mô hình từ mô hình Account và Customer
@@ -22,6 +24,8 @@ namespace BookStore.ViewModel
             CustomerTypeId = customer.CustomerTypeId;
             Gender = customer.Gender;
             Email = customer.Email;
+            FullName = customer.FullName;
+            Phone = customer.Phone;
             // ...
         }
         public CustomerAccountViewModel()

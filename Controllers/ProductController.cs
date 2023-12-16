@@ -13,7 +13,7 @@ namespace BookStore.Controllers
         private readonly BookStoreContext _context;
         public class PriceRange
         {
-            public long Min {  get; set; }
+            public long Min { get; set; }
             public long Max { get; set; }
         }
 
@@ -21,13 +21,13 @@ namespace BookStore.Controllers
         {
             _context = ctx;
         }
-        
+
         public IActionResult AllProduct(int? page)
         {
             int pageSize = 12;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var lstProduct = _context.Books.AsNoTracking().OrderBy(x => x.BookName);
-			PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+            PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
             return View(lst);
         }
         public IActionResult ProductByCategory(int categoryId, int? page)
@@ -35,9 +35,9 @@ namespace BookStore.Controllers
             int pageSize = 12;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var lstProduct = _context.Books.AsNoTracking().Where(x => x.BookCategoryId == categoryId).OrderBy(x => x.PublishYear);
-			PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+            PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
             ViewBag.categoryId = categoryId;
-            return View("AllProduct", lst);
+            return View(lst);
         }
         [AdminAuthorize]
         public IActionResult ProductDetail(int productId)
@@ -63,26 +63,33 @@ namespace BookStore.Controllers
 
         }
         [HttpPost]
-        public IActionResult GetFilteredProduct([FromBody] FilterDataProduct filter,int? page)
+        public IActionResult GetFilteredProduct([FromBody] FilterDataProduct filter, int? page)
         {
-            int pageSize = 12;
-            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            //int pageSize = 12;
+            //int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var lstProduct = _context.Books.ToList();
-            if (filter.PriceRange != null && filter.PriceRange.Count>0 && !filter.PriceRange.Contains("all"))
+            if (filter.PriceRange != null && filter.PriceRange.Count > 0)
             {
-                List<PriceRange> priceRanges = new List<PriceRange>();
-                foreach(var range in filter.PriceRange)
+                if (filter.PriceRange.Contains("all"))
                 {
-                    var value = range.Split("-").ToArray();
-                    PriceRange priceRange = new PriceRange();
-                    priceRange.Min = Int64.Parse(value[0]);
-                    priceRange.Max = Int64.Parse(value[1]);
-                    priceRanges.Add(priceRange);
+                    lstProduct = lstProduct.Where(p => p.Price > 0).ToList();
                 }
-                lstProduct = lstProduct.Where(p=>priceRanges.Any(r=>p.Price>=r.Min && p.Price<=r.Max)).ToList();   
+                else
+                {
+                    List<PriceRange> priceRanges = new List<PriceRange>();
+                    foreach (var range in filter.PriceRange)
+                    {
+                        var value = range.Split("-").ToArray();
+                        PriceRange priceRange = new PriceRange();
+                        priceRange.Min = Int64.Parse(value[0]);
+                        priceRange.Max = Int64.Parse(value[1]);
+                        priceRanges.Add(priceRange);
+                    }
+                    lstProduct = lstProduct.Where(p => priceRanges.Any(r => p.Price >= r.Min && p.Price <= r.Max)).OrderBy(x=>x.Price).ToList();
+                }
             }
-            PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
-            return PartialView("_ReturnProductByFilter", lst);
+            //PagedList<Book> lst = new PagedList<Book>(lstProduct, pageNumber, pageSize);
+            return PartialView("_ReturnProductByFilter", lstProduct);
         }
 
     }
