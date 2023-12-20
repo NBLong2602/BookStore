@@ -22,20 +22,22 @@ namespace BookStore.Controllers
         }
         public IActionResult Purchase()
         {
-            return View();
+            int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId").ToString());
+            var OrderInfos = _context.OrderInfos.Where(o => o.CustomerId.Equals(sessionUserId)).ToList();
+            return View(OrderInfos);
         }
-        public IActionResult Address()
-        {
-            return View();
-        }
-        public IActionResult Payment()
-        {
-            return View();
-        }
-        public IActionResult EditProfile()
-        {
-            return View();
-        }
+        //public IActionResult Address()
+        //{
+        //    return View();
+        //}
+        //public IActionResult Payment()
+        //{
+        //    return View();
+        //}
+        //public IActionResult EditProfile()
+        //{
+        //    return View();
+        //}
         //public IActionResult Purchase() - Order History
         //[Route("/account")]
         //[Route("/Profile")]

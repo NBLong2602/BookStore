@@ -36,7 +36,7 @@ namespace BookStore.Controllers
             {
                 DateTime currentTime = DateTime.Now;
                 // Định dạng theo định dạng MM/dd/yyyy
-                string formattedTime = currentTime.ToString("MM/dd/yyyy");
+                string formattedTime = currentTime.ToString("dd/MM/yyyy");
                 //Add new OrderInfor
                 if (int.TryParse(HttpContext.Session.GetString("UserId"), out int customerId))
                 {

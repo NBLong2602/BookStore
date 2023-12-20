@@ -1,2 +1,2 @@
-﻿- Profile
+﻿- Profile ( func Update )
 - Purchase
