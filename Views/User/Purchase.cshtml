@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Order History";
     ViewData["PageHeader"] = "Purchase";
     Layout = "~/Views/Shared/_LayoutStore.cshtml";
@@ -13,24 +14,33 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <h3>@ViewData["Title"]</h3>
+                    <div class="row">
+                        <h3 class="col">Mã đơn hàng</h3>
+                        <h3 class="col">Thời gian đặt</h3>
+                        <h3 class="col">Tổng giá trị</h3>
+                        <h3 class="col">Chi tiết</h3>
+                    </div>
                 </div>
                 <div class="card-body">
+                    @foreach (var Order in Model)
+                    {
                     <div class="row">
-                        <div class="col-md-4">
-                            <!-- User Avatar -->
-                            <img src="https://placekitten.com/200/200" alt="User Avatar" class="img-fluid rounded-circle mb-4">
+                         
+                            <div class="col">
+                                    <h4 class="mb-3">#@Order.Id</h4>
+                            </div>
+                            <div class="col">
+                                    <p>@Order.OrderDate</p>
+                            </div>
+                            <div class="col">
+                                    <p>@Cart.ConvertToVND((decimal)Order.TotalPrice) </p>
+                            </div>
+                            <div class="col">
+                                <a href="#">Chi tiết</a>
+                            </div>
+
                         </div>
-                        <div class="col-md-8">
-                            @foreach (var Order in Model)
-                            {
-                                <!-- User Information -->
-                                <h4 class="mb-3">Mã đơn hàng: #@Order.Id</h4>
-                                <p>Thời gian đặt: @Order.OrderDate</p>
-                                @* <p>Tổng giá trị: </p> *@
-                                <!-- Add more profile information as needed -->
-                            }
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

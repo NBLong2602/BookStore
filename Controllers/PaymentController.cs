@@ -14,7 +14,6 @@ namespace BookStore.Controllers
         {
             _context = ctx;
         }
-
         //public IActionResult Index()
         //{
         //    string notification = TempData["ResutlPayment"] as string;
@@ -23,7 +22,7 @@ namespace BookStore.Controllers
         //    return View();
         //}
         [HttpPost]
-        public async Task<IActionResult> Index(IFormCollection form)
+        public async Task<IActionResult> Index(IFormCollection form, float totalPrice)
         {
             Cart = HttpContext.Session.GetJson<Cart>("cart");
             string? Note = form["note"];
@@ -44,8 +43,9 @@ namespace BookStore.Controllers
                     {
                         CustomerId = customerId,
                         EmployeeId = 1,
-                        OrderDate = formattedTime
-                    };
+                        OrderDate = formattedTime,
+                        TotalPrice = totalPrice
+                };
                     _context.OrderInfos.Add(orderInfo);
                     await _context.SaveChangesAsync();
                     await AddOrderDetailAsync(orderInfo, Cart, formattedTime, Note);

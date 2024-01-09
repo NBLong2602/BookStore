@@ -13,6 +13,8 @@ public partial class OrderInfo
 
     public string? OrderDate { get; set; }
 
+    public float TotalPrice { get; set; }
+
     public virtual Customer Customer { get; set; } = null!;
 
     public virtual Employee? Employee { get; set; }
