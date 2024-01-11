@@ -34,7 +34,6 @@ namespace BookStore.Controllers
             else
             {
                 DateTime currentTime = DateTime.Now;
-                // Định dạng theo định dạng MM/dd/yyyy
                 string formattedTime = currentTime.ToString("dd/MM/yyyy");
                 //Add new OrderInfor
                 if (int.TryParse(HttpContext.Session.GetString("UserId"), out int customerId))
@@ -45,11 +44,11 @@ namespace BookStore.Controllers
                         EmployeeId = 1,
                         OrderDate = formattedTime,
                         TotalPrice = totalPrice
-                };
+                    };
                     _context.OrderInfos.Add(orderInfo);
                     await _context.SaveChangesAsync();
                     await AddOrderDetailAsync(orderInfo, Cart, formattedTime, Note);
-                    return RedirectToAction("PaymentSuccess");  
+                    return RedirectToAction("PaymentSuccess");
                 }
                 else
                 {
@@ -57,7 +56,7 @@ namespace BookStore.Controllers
                 }
             }
         }
-        private async Task AddOrderDetailAsync(OrderInfo orderInfo, Cart cart, string formattedTime,string note)
+        private async Task AddOrderDetailAsync(OrderInfo orderInfo, Cart cart, string formattedTime, string note)
         {
             var orderDetails = cart.lineCollection.Select(cartLine => new OrderDetail
             {

@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Address";
+    ViewData["PageHeader"] = "Address";
+    Layout = "~/Views/Shared/_LayoutStore.cshtml";
+}
+@model Customer
+<!-- Profile Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <!-- Profile Buttons on the Left -->
+        <partial name="_MenuContent" />
+        <!-- User Profile -->
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h3>@ViewData["Title"]</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- User Information -->
+                            <h4 class="mb-3">@Model.Address</h4>
+                            <!-- Add more profile information as needed -->
+                        </div>
+                        <div class="col-md-4 input-group-append ">
+                            <form asp-controller="User" asp-action="AddressEdit">
+                                <button class="btn btn-primary px-4" style="font-weight:700"><i class="far fa-edit" style="padding-right:10px"></i>Cập nhật</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Profile End -->
