@@ -5,7 +5,7 @@
 }
 @model Cart
 <!-- Checkout Start -->
-<form action="@Url.Action("Index", "Payment")" method="post">
+<form action="@Url.Action("Index", "Payment",new { totalPrice = Model.ComputeTotalValue() + ViewBag.feeShip })" method="post">
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
             <div class="col-lg-8">
