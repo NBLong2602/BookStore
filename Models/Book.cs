@@ -31,6 +31,8 @@ public partial class Book
 
     public string? Description { get; set; }
 
+    public int Stock { get; set; }
+
     public virtual Author Author { get; set; } = null!;
 
     public virtual BookCategory BookCategory { get; set; } = null!;
