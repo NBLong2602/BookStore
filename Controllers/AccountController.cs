@@ -29,29 +29,35 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult Login(Account account)
         {
-            if (HttpContext.Session.GetString("UserId") == null)
+            var userId = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(userId))
             {
-                var u = _context.Accounts.Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password))
+                var user = _context.Accounts
+                    .Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password))
                     .FirstOrDefault();
-                if (u != null)
+
+                if (user != null)
                 {
-                    HttpContext.Session.SetString("UserName", u.Username.ToString());
-                    HttpContext.Session.SetString("UserId", u.CustomerId.ToString());
-                    string sessionId = HttpContext.Session.GetString("UserId").ToString();
-                    int Adminrole = _context.Customers.Count(x => x.Id == int.Parse(sessionId) && x.CustomerTypeId == 1);
-                    if (Adminrole > 0)
-                    {
-                        HttpContext.Session.SetString("AdRole", "Admin");
-                        //return RedirectToAction("action", "controller", new { area = "area" });
-                    }
-                    else
-                    {
-                        HttpContext.Session.SetString("AdRole", "User");
-                    }
+                    HttpContext.Session.SetString("UserName", user.Username);
+                    HttpContext.Session.SetString("UserId", user.CustomerId.ToString());
+
+                    int adminRoleCount = _context.Customers.Count(x => x.Id == user.CustomerId && x.CustomerTypeId == 1);
+
+                    HttpContext.Session.SetString("AdRole", adminRoleCount > 0 ? "Admin" : "User");
+
                     return RedirectToAction("Index", "Home");
                 }
+
+                ViewBag.Message = "Sai tài khoản hoặc mật khẩu";
+                return View();
             }
-            return View();
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
+
         }
 
         [HttpGet]

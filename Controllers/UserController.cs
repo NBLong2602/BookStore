@@ -16,14 +16,29 @@ namespace BookStore.Controllers
         {
             _context = ctx;
         }
+
+        #region Profile
+
         [Route("Profile")]
         public IActionResult Profile()
         {
-            int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId").ToString());
-            var ProfileUser = _context.Customers.Where(c => c.Id.Equals(sessionUserId)).FirstOrDefault();
-            return View(ProfileUser);
-        }
+            if (int.TryParse(HttpContext.Session.GetString("UserId"), out int sessionUserId))
+            {
+                var profileUser = _context.Customers
+                                           .FirstOrDefault(c => c.Id == sessionUserId);
 
+                if (profileUser != null)
+                {
+                    return View(profileUser);
+                }
+            }
+
+            // Xử lý trường hợp không thể chuyển đổi "UserId" thành số nguyên
+            // hoặc không tìm thấy người dùng trong database.
+            // Có thể thêm thông báo lỗi hoặc chuyển hướng đến trang lỗi tùy thuộc vào yêu cầu của bạn.
+            return RedirectToAction("Error");
+
+        }
         [Route("Profile/Edit")]
         [HttpGet]
         public IActionResult ProfileEdit()
@@ -80,14 +95,10 @@ namespace BookStore.Controllers
 
             return RedirectToAction("Profile");
         }
+        #endregion
 
-        [Route("Purchase")]
-        public IActionResult Purchase()
-        {
-            int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId").ToString());
-            var OrderInfos = _context.OrderInfos.Where(o => o.CustomerId.Equals(sessionUserId)).OrderByDescending(x => x.Id).ToList();
-            return View(OrderInfos);
-        }
+        #region Address
+
         [Route("Address")]
         public IActionResult Address()
         {
@@ -95,7 +106,6 @@ namespace BookStore.Controllers
             var AddressUser = _context.Customers.Where(c => c.Id.Equals(sessionUserId)).FirstOrDefault();
             return View(AddressUser);
         }
-
         [Route("Address/Edit")]
         [HttpGet]
         public IActionResult AddressEdit()
@@ -106,13 +116,12 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult AddressEdit(string location)
         {
-
-            int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId").ToString());
+            int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId"));
             var customerToUpdate = _context.Customers.Find(sessionUserId);
             if (customerToUpdate != null)
             {
-                string addressState = location;
-                customerToUpdate.Address = addressState;
+                string addressUpdate = location;
+                customerToUpdate.Address = addressUpdate;
                 _context.Customers.Update(customerToUpdate);
                 _context.SaveChanges();
             }
@@ -120,7 +129,15 @@ namespace BookStore.Controllers
             return RedirectToAction("Address");
         }
 
+        #endregion
 
+        [Route("Purchase")]
+        public IActionResult Purchase()
+        {
+            int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId").ToString());
+            var OrderInfos = _context.OrderInfos.Where(o => o.CustomerId.Equals(sessionUserId)).OrderByDescending(x => x.Id).ToList();
+            return View(OrderInfos);
+        }
 
 
     }
