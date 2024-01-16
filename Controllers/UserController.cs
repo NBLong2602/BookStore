@@ -120,13 +120,17 @@ namespace BookStore.Controllers
             var customerToUpdate = _context.Customers.Find(sessionUserId);
             if (customerToUpdate != null)
             {
-                string addressUpdate = location;
-                customerToUpdate.Address = addressUpdate;
+                customerToUpdate.Address = location;
                 _context.Customers.Update(customerToUpdate);
                 _context.SaveChanges();
+                return RedirectToRoute("Address");
             }
+            else
+            {
+                return View();
+            }    
+            
 
-            return RedirectToAction("Address");
         }
 
         #endregion
