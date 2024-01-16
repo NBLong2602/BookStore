@@ -21,14 +21,40 @@
                             <!-- User Avatar -->
                             <img src="https://placekitten.com/200/200" alt="User Avatar" class="img-fluid rounded-circle mb-4">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <!-- User Information -->
                             <h4 class="mb-3">@Model.FullName</h4>
-                            <p>BirthDay: @Model.Birthday</p>
+                            <p>Ngày Sinh: @Model.Birthday?.ToString("dd-MM-yyyy")</p>
+                            @if (@Model.Gender == true)
+                            {
+                                <p>Giới tính: Nam</p>
+                            }
+                            else
+                            {
+                                <p>Giới tính: Nữ</p>
+                            }
                             <p>Email: @Model.Email</p>
-                            <p>Phone: @Model.Phone</p>
-                            <p>Gender: @Model.Gender</p>
+                            @{
+                                string displayedPhoneNumber = "";
+
+                                if (!string.IsNullOrEmpty(Model.Phone) && Model.Phone.Length >= 6)
+                                {
+                                    displayedPhoneNumber = Model.Phone.Substring(0, 3) + new string('*', Model.Phone.Length - 6) + Model.Phone.Substring(Model.Phone.Length - 3);
+                                }
+                                else
+                                {
+                                    displayedPhoneNumber = Model.Phone; // Hiển thị số điện thoại đầy đủ nếu không đủ ký tự
+                                }
+                            }
+
+                            <p>Số điện thoại: @displayedPhoneNumber</p>
+
                             <!-- Add more profile information as needed -->
+                        </div>
+                        <div class="col-md-2 input-group-append ">
+                            <form asp-controller="User" asp-action="ProfileEdit" method="get">
+                                <button class="btn btn-primary px-4" style="font-weight:700"><i class="far fa-edit" style="padding-right:10px"></i>Cập nhật</button>
+                            </form>
                         </div>
                     </div>
                 </div>
