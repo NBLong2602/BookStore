@@ -4,6 +4,9 @@
 }
 
 @model IEnumerable<BookStore.Models.Book>
+@{
+    int index = 1;
+}
 <div class="page-container">
 
     <!-- Content Wrapper START -->
@@ -44,8 +47,8 @@
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover e-commerce-table">
+                <div class="table-responsive" style="overflow-x:unset">
+                    <table class="table table-hover e-commerce-table" id="data-table">
                         <thead>
                             <tr>
                                 <th>
@@ -69,8 +72,8 @@
                                 <tr>
                                     <td>
                                         <div class="checkbox">
-                                            <input id="check-item-1" type="checkbox">
-                                            <label for="check-item-1" class="m-b-0"></label>
+                                            <input id="check-item-@index" type="checkbox">
+                                            <label for="check-item-@index" class="m-b-0"></label>
                                         </div>
                                     </td>
                                     <td>
@@ -78,7 +81,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img class="img-fluid rounded" src="@Url.Content("../ProductsImages/Images/" + product.PictureThumb)" style="max-width: 60px" alt="">
+                                            <img class="img-fluid rounded" src="@Url.Content("~/ProductsImages/Images/" + product.PictureThumb)" style="max-width: 60px" alt="">
                                             <h6 class="m-b-0 m-l-10">@product.BookName</h6>
                                         </div>
                                     </td>
@@ -108,6 +111,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                                index++;
                             }
 
                         </tbody>
@@ -132,9 +136,10 @@
 </div>
 
  @section Scripts {
+
+
+    <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
     <script src="~/admin/assets/js/pages/e-commerce-order-list.js"></script>
-
-
 }

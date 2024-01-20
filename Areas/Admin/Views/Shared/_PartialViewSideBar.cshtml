@@ -1,0 +1,159 @@
+﻿<!-- Side Nav START -->
+<div class="side-nav">
+    <div class="side-nav-inner">
+        <ul class="side-nav-menu scrollable">
+            <li class="nav-item dropdown open" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-dashboard"></i>
+                    </span>
+                    <span class="title">Dashboard</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="active">
+                        <a asp-controller="HomeAdmin" asp-action="index">Trang chủ</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-appstore"></i>
+                    </span>
+                    <span class="title">Quản Lý Đơn Hàng</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Danh sách đơn hàng</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Thông tin vận chuyển và giao hàng</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-build"></i>
+                    </span>
+                    <span class="title">Quản Lý Sản Phẩm</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-controller="Product" asp-action="ProductList">Danh sách sản phẩm</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Điều chỉnh giá sản phẩm</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-form"></i>
+                    </span>
+                    <span class="title">Quản Lý Nhân Viên</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Danh sách nhân viên bán hàng</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Lịch trực và phân công công việc</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Form Validation</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-form"></i>
+                    </span>
+                    <span class="title">Quản Lý Khách Hàng</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Hồ sơ khách hàng</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Giá trị khách hàng</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-hdd"></i>
+                    </span>
+                    <span class="title">Quản Lý Kho Hàng</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Số lượng tồn</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Lịch sử nhập hàng</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Báo cáo hàng tồn kho</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-table"></i>
+                    </span>
+                    <span class="title">Thống Kê & Báo Cáo</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Doanh số</a>
+                    </li>
+                    <li>
+                        <a asp-controller="HomeAdmin" asp-action="index">Lợi nhuận</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Side Nav END -->
+ @section Scripts {
+     <script>
+        function toggleClass(clickedElement) {
+            // Lấy danh sách tất cả các thẻ <li>
+            var listItems = document.querySelectorAll('.nav-item');
+
+            // Xóa class "open" khỏi tất cả các thẻ <li>
+            listItems.forEach(function (item) {
+                item.classList.remove('open');
+            });
+
+            // Thêm class "open" vào thẻ <li> được click
+            clickedElement.classList.add('open');
+     </script>
+ }
