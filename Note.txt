@@ -1,2 +1,4 @@
-﻿- Profile ( func Update )
+﻿- User
+	+ Edit profile
 - Purchase
+	+ View Order Detail
