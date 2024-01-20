@@ -45,15 +45,14 @@ namespace BookStore.Controllers
         }
         [Route("Address/Edit")]
         [HttpPost]
-        public IActionResult AddressEdit(IFormCollection form, string location)
+        public IActionResult AddressEdit(string location)
         {
 
             int sessionUserId = int.Parse(HttpContext.Session.GetString("UserId").ToString());
             var customerToUpdate = _context.Customers.Find(sessionUserId);
             if (customerToUpdate != null)
             {
-                string addressLocal = form["infoAddress"].ToString();
-                string addressState = addressLocal + ", " + location;
+                string addressState = location;
                 customerToUpdate.Address = addressState;
                 _context.Customers.Update(customerToUpdate);
                 _context.SaveChanges();

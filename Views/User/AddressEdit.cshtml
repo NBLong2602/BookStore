@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="input-group">
-                                    <input type="text" name="infoAddress" class="form-control border-black p-4" placeholder="Số nhà, ngõ, ngách, thôn, xóm,....">
+                                    <input type="text" name="infoAddress" id="infoAddress" class="form-control border-black p-4" placeholder="Số nhà, ngõ, ngách, thôn, xóm,....">
                                 </div>
                                 <div style="margin-top:3%">
                                     <select class="form-select form-select-sm mb-3" id="city" name="city" aria-label=".form-select-sm">
@@ -116,7 +116,7 @@
 
         $(document).ready(function () {
             $(".ajax-submit-btn").click(function () {
-                var address_ajax = (selectedWard + ", " + selectedDistrict + ", " + selectedCity).toString();
+                var address_ajax = (document.getElementById("infoAddress").value + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedCity).toString();
                 $.ajax({
                     url: "/User/Address/Edit",
                     method: "POST",
