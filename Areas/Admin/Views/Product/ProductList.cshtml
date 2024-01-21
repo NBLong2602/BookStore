@@ -2,7 +2,7 @@
     ViewData["Title"] = "ProductList";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @model IEnumerable<BookStore.Models.Book>
 
 <div class="page-container">
@@ -72,7 +72,7 @@
                                         </div>
                                     </td>
                                     <td>@product.BookCategory.Name</td>
-                                    <td>@product.Price</td>
+                                    <td>@Cart.ConvertToVND((decimal)product.Price)</td>
                                     <td class="text-center">@product.Stock</td>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -90,10 +90,10 @@
                                     </td>
                                     <td class="text-right">
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                            <a asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-edit"></i></a>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@product.Isbn"><i class="anticon anticon-edit"></i></a>
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                            <a asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-delete"></i></a>
+                                            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-delete"></i></a>
                                         </button>
                                     </td>
                                 </tr>

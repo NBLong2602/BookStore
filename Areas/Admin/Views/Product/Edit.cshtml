@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+}
+@model Book
+<div class="page-container">
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <div class="card">
+            <div class="card-body">
+                <h4>Chỉnh sửa sản phẩm</h4>
+                <p>More complex layouts can also be created with the grid system.</p>
+                <div class="m-t-25" style="max-width: 700px">
+                    <form asp-area="Admin" asp-action="Edit" asp-controller="Product" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Isbn">ISBN</label>
+                                <input asp-for="Isbn" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="AuthorId">Author</label>
+                                <input asp-for="Author.Name" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="PublisherId">Publisher</label>
+                                <input asp-for="Publisher.Name" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="BookCategoryId">Book Category</label>
+                                <input asp-for="BookCategory.Name" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="BookName">Book Name</label>
+                                <input asp-for="BookName" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Price">Price</label>
+                                <input asp-for="Price" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="PictureThumb">Picture Thumbnail</label>
+                                <input asp-for="PictureThumb" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="PublishYear">Publish Year</label>
+                                <input asp-for="PublishYear" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Language">Language</label>
+                                <input asp-for="Language" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Status">Status</label>
+                                <input asp-for="Status" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Discount">Discount</label>
+                                <input asp-for="Discount" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="TotalPage">Total Page</label>
+                                <input asp-for="TotalPage" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description">Description</label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Stock">Stock</label>
+                            <input asp-for="Stock" class="form-control" />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <button type="reset" class="btn btn-danger">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
