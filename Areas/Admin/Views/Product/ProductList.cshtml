@@ -73,7 +73,7 @@
                                     </td>
                                     <td>@product.BookCategory.Name</td>
                                     <td>@product.Price</td>
-                                    <td class = "text-center">@product.Stock</td>
+                                    <td class="text-center">@product.Stock</td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             @if (product.Stock < 1)
@@ -97,7 +97,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                
+
                             }
 
                         </tbody>
@@ -121,33 +121,39 @@
 
 </div>
 
- @section Scripts {
-     <script>
+@section Scripts {
+    <script>
         document.getElementById('selectIdCate').addEventListener('change', function () {
             var selectedValue = this.value;
             console.log('Selected Value:', selectedValue);
 
-            // Tạo URL phù hợp với router
-            var url = "categoryId-" + selectedValue;
+            if (selectedValue == "all") {
+                window.location.href = "/Admin/Product/List";
+            }
+            else {
+                // Tạo URL phù hợp với router
+                var url = "/Admin/Product/Filter/categoryId-" + selectedValue;
 
-            $.ajax({
-                url: url,
-                method: "get",
-                data: {
-                    // Điều này là cách bạn truyền dữ liệu tới action FilterProduct
-                    categoryId: selectedValue,
-                },
-                success: function (data) {
-                    // Thực hiện các bước xử lý sau khi nhận được kết quả từ action
-                    window.location.href = url;
-                },
-                error: function () {
-                    console.log('Truyền data fail');
-                }
-            });
+                $.ajax({
+                    url: url,
+                    method: "get",
+                    data: {
+                        // Điều này là cách bạn truyền dữ liệu tới action FilterProduct
+                        categoryId: selectedValue,
+                    },
+                    success: function (data) {
+                        // Thực hiện các bước xử lý sau khi nhận được kết quả từ action
+                        window.location.href = url;
+                    },
+                    error: function () {
+                        console.log('Truyền data fail');
+                    }
+                });
+            }
+
         });
 
-    </script> 
+    </script>
     <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
