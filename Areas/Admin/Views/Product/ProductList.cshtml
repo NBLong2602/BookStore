@@ -2,11 +2,9 @@
     ViewData["Title"] = "ProductList";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model IEnumerable<BookStore.Models.Book>
-@{
-    int index = 1;
-}
+
 <div class="page-container">
 
     <!-- Content Wrapper START -->
@@ -51,12 +49,6 @@
                     <table class="table table-hover e-commerce-table" id="data-table">
                         <thead>
                             <tr>
-                                <th>
-                                    <div class="checkbox">
-                                        <input id="checkAll" type="checkbox">
-                                        <label for="checkAll" class="m-b-0"></label>
-                                    </div>
-                                </th>
                                 <th>ID</th>
                                 <th>Product</th>
                                 <th>Category</th>
@@ -71,12 +63,6 @@
                             {
                                 <tr>
                                     <td>
-                                        <div class="checkbox">
-                                            <input id="check-item-@index" type="checkbox">
-                                            <label for="check-item-@index" class="m-b-0"></label>
-                                        </div>
-                                    </td>
-                                    <td>
                                         #@product.Isbn
                                     </td>
                                     <td>
@@ -87,7 +73,7 @@
                                     </td>
                                     <td>@product.BookCategory.Name</td>
                                     <td>@product.Price</td>
-                                    <td>@product.Stock</td>
+                                    <td class = "text-center">@product.Stock</td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             @if (product.Stock < 1)
@@ -104,14 +90,14 @@
                                     </td>
                                     <td class="text-right">
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                            <i class="anticon anticon-edit"></i>
+                                            <a asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-edit"></i></a>
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                            <i class="anticon anticon-delete"></i>
+                                            <a asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-delete"></i></a>
                                         </button>
                                     </td>
                                 </tr>
-                                index++;
+                                
                             }
 
                         </tbody>
@@ -136,10 +122,35 @@
 </div>
 
  @section Scripts {
+     <script>
+        document.getElementById('selectIdCate').addEventListener('change', function () {
+            var selectedValue = this.value;
+            console.log('Selected Value:', selectedValue);
 
+            // Tạo URL phù hợp với router
+            var url = "categoryId-" + selectedValue;
 
+            $.ajax({
+                url: url,
+                method: "get",
+                data: {
+                    // Điều này là cách bạn truyền dữ liệu tới action FilterProduct
+                    categoryId: selectedValue,
+                },
+                success: function (data) {
+                    // Thực hiện các bước xử lý sau khi nhận được kết quả từ action
+                    window.location.href = url;
+                },
+                error: function () {
+                    console.log('Truyền data fail');
+                }
+            });
+        });
+
+    </script> 
     <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
     <script src="~/admin/assets/js/pages/e-commerce-order-list.js"></script>
+
 }

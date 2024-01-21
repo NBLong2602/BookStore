@@ -1,9 +1,13 @@
-﻿@model IEnumerable<BookStore.Models.BookCategory>
-<select class="custom-select" style="min-width: 180px;">
-    <option selected>Catergory</option>
+﻿@model IEnumerable<BookCategory>
+
+<select class="custom-select" id="selectIdCate" style="min-width: 180px;">
+    <option selected>Category</option>
     <option value="all">All</option>
+
     @foreach (var cate in Model)
     {
-        <option value="@cate.Id">@cate.Name</option>
+        <option value="@cate.Id" asp-area="Admin">
+            @cate.Name
+        </option>
     }
 </select>

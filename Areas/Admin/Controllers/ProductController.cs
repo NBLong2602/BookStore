@@ -14,16 +14,32 @@ namespace BookStore.Areas.Admin.Controllers
         {
             _context = ctx;
         }
+
         [Route("")]
         [Route("List")]
         public IActionResult ProductList()
         {
             var lstProduct = _context.Books
                                .AsNoTracking()
-                               .Include(categories => categories.BookCategory) // Bổ sung Include để tải thông tin tác giả
-                               .OrderBy(x => x.BookName)
+                               .Include(categories => categories.BookCategory)
+                               .OrderBy(x => x.Isbn)
                                .ToList();
             return View(lstProduct);
         }
+
+        [Route("Filter/categoryId-{categoryId}")]
+        [HttpGet]
+        public IActionResult FilterProduct(int categoryId)
+        {
+            var lstProduct = _context.Books
+                               .AsNoTracking()
+                               .Where(x => x.BookCategoryId == categoryId)
+                               .Include(categories => categories.BookCategory)
+                               .OrderBy(x => x.Isbn)
+                               .ToList();
+            return View("ProductList", lstProduct);
+        }
+
+        // Add more actions as needed...
     }
 }
