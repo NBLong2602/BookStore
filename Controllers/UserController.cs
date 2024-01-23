@@ -123,7 +123,7 @@ namespace BookStore.Controllers
                 customerToUpdate.Address = location;
                 _context.Customers.Update(customerToUpdate);
                 _context.SaveChanges();
-                return RedirectToRoute("Address");
+                return Redirect("Address");
             }
             else
             {

@@ -1,9 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "ProductList";
+    ViewData["Title"] = "Product List";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
 
 @model IEnumerable<BookStore.Models.Book>
+
 <div class="page-container">
 
     <!-- Content Wrapper START -->
@@ -44,16 +45,10 @@
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover e-commerce-table">
+                <div class="table-responsive" style="overflow-x:unset">
+                    <table class="table table-hover e-commerce-table" id="data-table">
                         <thead>
                             <tr>
-                                <th>
-                                    <div class="checkbox">
-                                        <input id="checkAll" type="checkbox">
-                                        <label for="checkAll" class="m-b-0"></label>
-                                    </div>
-                                </th>
                                 <th>ID</th>
                                 <th>Product</th>
                                 <th>Category</th>
@@ -68,23 +63,17 @@
                             {
                                 <tr>
                                     <td>
-                                        <div class="checkbox">
-                                            <input id="check-item-1" type="checkbox">
-                                            <label for="check-item-1" class="m-b-0"></label>
-                                        </div>
-                                    </td>
-                                    <td>
                                         #@product.Isbn
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img class="img-fluid rounded" src="@Url.Content("../ProductsImages/Images/" + product.PictureThumb)" style="max-width: 60px" alt="">
+                                            <img class="img-fluid rounded" src="@Url.Content("~/ProductsImages/Images/" + product.PictureThumb)" style="max-width: 60px" alt="">
                                             <h6 class="m-b-0 m-l-10">@product.BookName</h6>
                                         </div>
                                     </td>
                                     <td>@product.BookCategory.Name</td>
-                                    <td>@product.Price</td>
-                                    <td>@product.Stock</td>
+                                    <td>@Cart.ConvertToVND((decimal)product.Price)</td>
+                                    <td class="text-center">@product.Stock</td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             @if (product.Stock < 1)
@@ -101,13 +90,14 @@
                                     </td>
                                     <td class="text-right">
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                            <i class="anticon anticon-edit"></i>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@product.Isbn"><i class="anticon anticon-edit"></i></a>
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                            <i class="anticon anticon-delete"></i>
+                                            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-delete"></i></a>
                                         </button>
                                     </td>
                                 </tr>
+
                             }
 
                         </tbody>
@@ -131,10 +121,42 @@
 
 </div>
 
- @section Scripts {
+@section Scripts {
+    <script>
+        document.getElementById('selectIdCate').addEventListener('change', function () {
+            var selectedValue = this.value;
+            console.log('Selected Value:', selectedValue);
+
+            if (selectedValue == "all") {
+                window.location.href = "/Admin/Product/List";
+            }
+            else {
+                // Tạo URL phù hợp với router
+                var url = "/Admin/Product/Filter/categoryId-" + selectedValue;
+
+                $.ajax({
+                    url: url,
+                    method: "get",
+                    data: {
+                        // Điều này là cách bạn truyền dữ liệu tới action FilterProduct
+                        categoryId: selectedValue,
+                    },
+                    success: function (data) {
+                        // Thực hiện các bước xử lý sau khi nhận được kết quả từ action
+                        window.location.href = url;
+                    },
+                    error: function () {
+                        console.log('Truyền data fail');
+                    }
+                });
+            }
+
+        });
+
+    </script>
+    <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
     <script src="~/admin/assets/js/pages/e-commerce-order-list.js"></script>
-
 
 }

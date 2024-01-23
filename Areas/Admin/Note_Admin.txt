@@ -1,1 +1,2 @@
-﻿
+﻿- tag open trong _partialviewsidebar => không reload ?
+- Components catelist không redirect tới action
