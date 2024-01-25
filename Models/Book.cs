@@ -33,11 +33,11 @@ public partial class Book
 
     public int Stock { get; set; }
 
-    public virtual Author? Author { get; set; } 
+    public virtual Author Author { get; set; } = null!;
 
-    public virtual BookCategory? BookCategory { get; set; }
-
-    public virtual Publisher? Publisher { get; set; }
+    public virtual BookCategory BookCategory { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
+    public virtual Publisher Publisher { get; set; } = null!;
 }

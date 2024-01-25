@@ -1,6 +1,9 @@
 ﻿using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc.Rendering;
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -26,7 +29,10 @@ namespace BookStore.Areas.Admin.Controllers
                                .Include(categories => categories.BookCategory)
                                .OrderBy(x => x.Isbn)
                                .ToList();
+<<<<<<< HEAD
             //ViewBag.BookCategoryId = new SelectList(_context.BookCategories.ToList(), "Id", "Name");
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
             return View(lstProduct);
         }
 
@@ -56,10 +62,13 @@ namespace BookStore.Areas.Admin.Controllers
                                .Include(publisher => publisher.Publisher)
                                .OrderBy(x => x.Isbn)
                                .FirstOrDefault();
+<<<<<<< HEAD
 
             ViewBag.AuthorId = new SelectList(_context.Authors.ToList(),"Id","Name");
             ViewBag.PublisherId = new SelectList(_context.Publishers.ToList(), "Id", "Name");
             ViewBag.BookCategoryId = new SelectList(_context.BookCategories.ToList(), "Id", "Name");
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
             return View(lstProduct);
         }
 
@@ -88,8 +97,19 @@ namespace BookStore.Areas.Admin.Controllers
 
                 // Lưu thay đổi vào cơ sở dữ liệu
                 _context.SaveChanges();
+<<<<<<< HEAD
                 return RedirectToAction("ProductDetail", bookToUpdate);
             }
+=======
+            }
+
+            //var lstProduct = _context.Books
+            //                   .AsNoTracking()
+            //                   .Where(x => x.Isbn == productId)
+            //                   .Include(categories => categories.BookCategory)
+            //                   .OrderBy(x => x.Isbn)
+            //                   .FirstOrDefault();
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
             return View(bookToUpdate);
         }
 

@@ -2,23 +2,37 @@
     ViewData["Title"] = "Edit Product";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
+<<<<<<< HEAD
 @model BookStore.Models.Book
 
 @section css {
     <link href="~/admin/assets/vendors/select2/select2.css" rel="stylesheet">
+=======
+@model Book
+
+@section css{
+    <link href="assets/vendors/select2/select2.css" rel="stylesheet">
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
 }
 <div class="page-container">
 
     <!-- Content Wrapper START -->
     <div class="main-content">
         <form asp-area="Admin" asp-action="Edit" asp-controller="Product" method="post">
+<<<<<<< HEAD
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Isbn" />
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
             <div class="page-header no-gutters has-tab">
                 <div class="d-md-flex m-b-15 align-items-center justify-content-between">
                     <div class="media align-items-center m-b-15">
                         <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+<<<<<<< HEAD
                             <img src="@Url.Content("~/ProductsImages/Images/" + Model.PictureThumb)" alt="">
+=======
+                            <img src="assets/images/others/thumb-16.jpg" alt="">
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
                         </div>
                         <div class="m-l-15">
                             <h4 class="m-b-0">@Model.BookName</h4>
@@ -51,11 +65,15 @@
                             <div class="form-group">
                                 <label class="font-weight-semibold" asp-for="BookName">Product Name</label>
                                 <input type="text" class="form-control" asp-for="BookName" id="productName" placeholder="Product Name">
+<<<<<<< HEAD
                                 <span asp-validation-for="BookName" class="text-danger"></span>
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" asp-for="Price">Price</label>
                                 <input type="text" class="form-control" asp-for="Price" id="productPrice" placeholder="Price">
+<<<<<<< HEAD
                                 <span asp-validation-for="Price" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -67,6 +85,24 @@
                                 <label class="font-weight-semibold" asp-for="AuthorId">Author</label>
                                 <select class="custom-select" asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
                                 <span asp-validation-for="AuthorId" class="text-danger"></span>
+=======
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-semibold" asp-for="BookCategoryId">Category</label>
+                                <select class="custom-select" asp-for="BookCategory.Name" id="productCategory">
+
+                                    <option value="@Model.BookCategoryId"  selected>@Model.BookCategory.Name</option>
+@*                                     @foreach( var cate in BookCategory)
+                                    {
+                                        <option value="homeDecoration">Home Decoration</option>
+                                    } *@
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-semibold" asp-for="AuthorId">Author</label>
+                                <input type="text" class="form-control" asp-for="Author.Name" placeholder="Brand">
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" asp-for="Status">Trạng thái</label>
@@ -90,6 +126,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
+<<<<<<< HEAD
                                 <label class="font-weight-semibold" asp-for="Language">Ngôn ngữ</label>
                                 <input type="text" class="form-control" asp-for="Language" id="Language">
                                 <span asp-validation-for="Language" class="text-danger"></span>
@@ -111,13 +148,54 @@
                             <div class="form-group">
                                 <label class="font-weight-semibold" asp-for="Status">Tình trạng</label>
 @*                                 <select class="custom-select" id="Status">
+=======
+                                <label class="font-weight-semibold" for="productSize">Size</label>
+                                <select class="select2" id="productSize" multiple="multiple">
+                                    <option value="40" selected>40</option>
+                                    <option value="42" selected>42</option>
+                                    <option value="44">44</option>
+                                    <option value="46">46</option>
+                                    <option value="48">48</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-semibold" for="productColors">Colors</label>
+                                <select class="select2" id="productColors" multiple="multiple">
+                                    <option value="db" selected>Dark Blue</option>
+                                    <option value="g" selected>Gray</option>
+                                    <option value="gb" selected>Gray Blue</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-semibold" for="productFit">Fit</label>
+                                <select class="custom-select" id="productFit">
+                                    <option value="skinny" selected>Skinny</option>
+                                    <option value="slim">Slim</option>
+                                    <option value="regular">Regular</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-semibold" for="productMaterial">Material</label>
+                                <select class="select2" id="productMaterial" multiple="multiple">
+                                    <option value="polyester" selected>Polyester</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-semibold" for="productShip">Ship From</label>
+                                <select class="custom-select" id="productShip">
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
                                     <option value="columbia" selected>Columbia</option>
                                     <option value="brazil">Brazil</option>
                                     <option value="chile">Chile</option>
                                     <option value="argentina">Argentina</option>
+<<<<<<< HEAD
                                 </select> *@
                                 <input asp-for="Status" class="form-control" />
                                 <span asp-validation-for="Status" class="text-danger"></span>
+=======
+                                </select>
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
                             </div>
                         </div>
                     </div>
@@ -126,7 +204,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div id="productDescription">
+<<<<<<< HEAD
                                 <p>@Model.Description</p>
+=======
+                                <p>Special cloth alert. The key to more success is to have a lot of pillows. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel. They will try to close the door on you, just open it. A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay calm. They key is to have every key, the key to open every door.The other day the grass was brown, now it’s green because I ain’t give up. Never surrender. Lion! I’m up to something. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise.</p>
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
                             </div>
                         </div>
                     </div>
@@ -136,9 +218,14 @@
     </div>
     <!-- Content Wrapper END -->
 </div>
+<<<<<<< HEAD
 <hr />
 
 @* <div class="page-container">
+=======
+--------------------------------------------------
+<div class="page-container">
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
     <!-- Content Wrapper START -->
     <div class="main-content">
         <div class="card">
@@ -236,6 +323,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div> *@
 
 @section Scripts {
@@ -243,5 +331,14 @@
     <script src="~/admin/assets/vendors/select2/select2.min.js"></script>
     <script src="~/admin/assets/vendors/quill/quill.min.js"></script>
     <script src="~/admin/assets/js/pages/e-commerce-product-edit.js"></script>
+=======
+</div>
+
+@section Scripts {
+    <!-- page js -->
+    <script src="assets/vendors/select2/select2.min.js"></script>
+    <script src="assets/vendors/quill/quill.min.js"></script>
+    <script src="assets/js/pages/e-commerce-product-edit.js"></script>
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
 }
 

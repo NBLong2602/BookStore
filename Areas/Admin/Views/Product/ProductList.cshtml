@@ -90,10 +90,10 @@
                                     </td>
                                     <td class="text-right">
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                            <a asp-controller="ProductAdmin" asp-action="ProductDetail" asp-route-productId="@product.Isbn"><i class="anticon anticon-edit"></i></a>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@product.Isbn"><i class="anticon anticon-edit"></i></a>
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                            <a asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-delete"></i></a>
+                                            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="index"><i class="anticon anticon-delete"></i></a>
                                         </button>
                                     </td>
                                 </tr>
