@@ -11,10 +11,10 @@
 
     <!-- page css -->
     <link href="~/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
-
+    @await RenderSectionAsync("css", required: false)
     <!-- Core css -->
     <link href="~/admin/assets/css/app.min.css" rel="stylesheet">
-    @await RenderSectionAsync("css", required: false)
+   
 
 </head>
 
