@@ -41,7 +41,7 @@ namespace BookStore.Controllers
                     var orderInfo = new OrderInfo
                     {
                         CustomerId = customerId,
-                        EmployeeId = 1,
+                        //EmployeeId = 1,
                         OrderDate = formattedTime,
                         TotalPrice = totalPrice
                     };

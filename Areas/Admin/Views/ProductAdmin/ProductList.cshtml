@@ -10,13 +10,11 @@
     <!-- Content Wrapper START -->
     <div class="main-content">
         <div class="page-header">
-            <h2 class="header-title">Orders List</h2>
             <div class="header-sub-title">
                 <nav class="breadcrumb breadcrumb-dash">
-                    <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-                    <a class="breadcrumb-item" href="#">Apps</a>
-                    <a class="breadcrumb-item" href="#">E-commerce</a>
-                    <span class="breadcrumb-item active">Orders List</span>
+                    <a class="breadcrumb-item" asp-action="index" asp-controller="HomeAdmin"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                    <a class="breadcrumb-item" asp-action="ProductList" asp-controller="ProductAdmin">Quản Lý Sản Phẩm</a>
+                    <span class="breadcrumb-item active" href="#">Danh Sách Sản Phẩm</span>
                 </nav>
             </div>
         </div>
@@ -42,7 +40,7 @@
                         <a asp-action="AddProduct" asp-controller="ProductAdmin">
                         <button class="btn btn-primary">
                             <i class="anticon anticon-plus-circle m-r-5"></i>
-                                <span>Add Product</span>
+                                <span>Thêm Sản Phẩm</span>
                             </button>
                         </a>
                     </div>
@@ -51,13 +49,13 @@
                     <table class="table table-hover e-commerce-table" id="data-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Stock Left</th>
-                                <th>Status</th>
-                                <th></th>
+                                <th>Mã Sách</th>
+                                <th>Tên Sách</th>
+                                <th>Danh Mục</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Trạng thái</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,21 +76,21 @@
                                     <td class="text-center">@product.Stock</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            @if (product.Stock < 1)
+                                            @if (product.Status < 1)
                                             {
                                                 <div class="badge badge-danger badge-dot m-r-10"></div>
-                                                <div>Out of Stock</div>
+                                                <div>Chưa Bán</div>
                                             }
                                             else
                                             {
                                                 <div class="badge badge-success badge-dot m-r-10"></div>
-                                                <div>In Stock</div>
+                                                <div>Đang Bán</div>
                                             }
                                         </div>
                                     </td>
-                                    <td class="text-right">
+                                    <td>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                            <a asp-controller="ProductAdmin" asp-action="ProductDetail" asp-route-productId="@product.Isbn"><i class="anticon anticon-edit"></i></a>
+                                            <a asp-controller="ProductAdmin" asp-action="ProductDetail" asp-route-productId="@product.Isbn"><i class="anticon anticon-profile"></i></a>
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded">
                                             <a asp-controller="ProductAdmin" asp-action="RemoveProduct" asp-route-productId="@product.Isbn"><i class="anticon anticon-delete"></i></a>

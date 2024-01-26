@@ -86,7 +86,7 @@ namespace BookStore.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Update(model);
+                _context.Entry(model).State = EntityState.Modified;
                 _context.SaveChanges();
                 return RedirectToAction("ProductList", "ProductAdmin");
             }
@@ -121,6 +121,7 @@ namespace BookStore.Areas.Admin.Controllers
             {
                 _context.Books.Add(model);
                 _context.SaveChanges();
+                ViewBag.SuccessMessage = "Thêm sản phẩm thành công!";
                 return RedirectToAction("ProductList", "ProductAdmin");
             }
             else

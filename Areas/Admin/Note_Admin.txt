@@ -1,2 +1,3 @@
 ﻿- tag open trong _partialviewsidebar => không reload ?
-- Components catelist không redirect tới action
+- WorkFlow Role nv bán hàng : check OrderInfor chưa được xác nhận (mã nhân viên bán hàng = null) thì view những đơn đó lên
+							  update đơn đó với mã nv là người duyệt đơn đó

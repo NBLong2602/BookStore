@@ -14,7 +14,19 @@
     @await RenderSectionAsync("css", required: false)
     <!-- Core css -->
     <link href="~/admin/assets/css/app.min.css" rel="stylesheet">
-   
+
+    <style>
+        /* CSS để ẩn thẻ div mặc định và căn giữa trên cùng */
+        .alert-success {
+            display: none;
+            position: fixed;
+            top: 1%;
+            left: 50%;
+            transform: translate(-50%);
+            padding: 15px;
+            z-index: 1000;
+        }
+    </style>
 
 </head>
 
@@ -121,7 +133,7 @@
                         <li class="dropdown dropdown-animated scale-left">
                             <div class="pointer" data-toggle="dropdown">
                                 <div class="avatar avatar-image  m-h-10 m-r-15">
-                                    <img src="~/admin/assets/images/avatars/thumb-3.jpg"  alt="">
+                                    <img src="~/admin/assets/images/avatars/thumb-3.jpg" alt="">
                                 </div>
                             </div>
                             <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
@@ -180,18 +192,26 @@
                             </a>
                         </li>
                     </ul>
+                    @* @if (ViewBag.SuccessMessage != null)
+                    {
+                        <div class="alert alert-success">
+                            <div class="d-flex align-items-center justify-content-start">
+                                <span class="alert-icon">
+                                    <i class="anticon anticon-check-o"></i>
+                                </span>
+                                <span>@ViewBag.SuccessMessage</span>
+                            </div>
+                        </div>
+                    } *@
                 </div>
-            </div>    
+            </div>
             <!-- Header END -->
-
             <!-- Side Nav START -->
             <partial name="_PartialViewSideBar" />
             <!-- Side Nav END -->
-
             <!-- Page Container START -->
             @RenderBody()
             <!-- Page Container END -->
-
             <!-- Search Start-->
             <div class="modal modal-left fade search" id="search-drawer">
                 <div class="modal-dialog">
@@ -275,9 +295,9 @@
                                         <p class="m-b-0 text-muted font-size-13">Data Analyst</p>
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="m-t-30">
-                                <h5 class="m-b-20">News</h5> 
+                                <h5 class="m-b-20">News</h5>
                                 <div class="d-flex m-b-30">
                                     <div class="avatar avatar-image">
                                         <img src="~/admin/assets/images/others/img-1.jpg" alt="">
@@ -290,13 +310,12 @@
                                         </p>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Search End-->
-
             <!-- Quick View START -->
             <div class="modal modal-right fade quick-view" id="quick-view">
                 <div class="modal-dialog">
@@ -351,13 +370,13 @@
                             </div>
                         </div>
                     </div>
-                </div>            
+                </div>
             </div>
             <!-- Quick View END -->
         </div>
     </div>
 
-    
+
     <!-- Core Vendors JS -->
     <script src="~/admin/assets/js/vendors.min.js"></script>
 
@@ -367,6 +386,18 @@
 
     <!-- Core JS -->
     <script src="~/admin/assets/js/app.min.js"></script>
+    <script>
+        // Hàm hiển thị và ẩn thẻ div sau 3 giây
+        $(document).ready(function () {
+            // Hiển thị thẻ div
+            $(".alert-success").fadeIn();
+
+            // Ẩn thẻ div sau 3 giây
+            setTimeout(function () {
+                $(".alert-success").fadeOut();
+            }, 3000);
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
