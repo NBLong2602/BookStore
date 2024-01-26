@@ -1,7 +1,10 @@
 ﻿using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 <<<<<<< HEAD
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc.Rendering;
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
 =======
 >>>>>>> parent of d1573a2 (fix update book - thieu update img)
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +33,10 @@ namespace BookStore.Areas.Admin.Controllers
                                .OrderBy(x => x.Isbn)
                                .ToList();
 <<<<<<< HEAD
+<<<<<<< HEAD
             //ViewBag.BookCategoryId = new SelectList(_context.BookCategories.ToList(), "Id", "Name");
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
 =======
 >>>>>>> parent of d1573a2 (fix update book - thieu update img)
             return View(lstProduct);
@@ -63,10 +69,13 @@ namespace BookStore.Areas.Admin.Controllers
                                .OrderBy(x => x.Isbn)
                                .FirstOrDefault();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             ViewBag.AuthorId = new SelectList(_context.Authors.ToList(),"Id","Name");
             ViewBag.PublisherId = new SelectList(_context.Publishers.ToList(), "Id", "Name");
             ViewBag.BookCategoryId = new SelectList(_context.BookCategories.ToList(), "Id", "Name");
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
 =======
 >>>>>>> parent of d1573a2 (fix update book - thieu update img)
             return View(lstProduct);
@@ -98,9 +107,12 @@ namespace BookStore.Areas.Admin.Controllers
                 // Lưu thay đổi vào cơ sở dữ liệu
                 _context.SaveChanges();
 <<<<<<< HEAD
+<<<<<<< HEAD
                 return RedirectToAction("ProductDetail", bookToUpdate);
             }
 =======
+=======
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
             }
 
             //var lstProduct = _context.Books
@@ -109,6 +121,9 @@ namespace BookStore.Areas.Admin.Controllers
             //                   .Include(categories => categories.BookCategory)
             //                   .OrderBy(x => x.Isbn)
             //                   .FirstOrDefault();
+<<<<<<< HEAD
+>>>>>>> parent of d1573a2 (fix update book - thieu update img)
+=======
 >>>>>>> parent of d1573a2 (fix update book - thieu update img)
             return View(bookToUpdate);
         }
