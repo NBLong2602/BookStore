@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BookStore.Areas.Admin.ViewModel.CustomerWithTotalPriceViewModel>
+
+@{
+    ViewData["Title"] = "CustomerList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+}
+
+<div class="page-container">
+
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th>
+                        Total Price
+                    </th>
+                    <th>
+                        Last Buy
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                           @Cart.ConvertToVND((decimal) item.TotalPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderDate)
+                        </td>
+                        <td>
+                            <a asp-action="EditCustomer" asp-controller="CustomerManager" asp-route-customerId="@item.Id">Edit</a> |
+                            <a asp-action="CustomerDetail" asp-controller="CustomerManager" asp-route-customerId="@item.Id">Details</a> |
+                            <a asp-action="RemoveCustomer" asp-controller="CustomerManager" asp-route-customerId="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

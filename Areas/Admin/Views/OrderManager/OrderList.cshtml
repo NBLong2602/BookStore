@@ -1,0 +1,94 @@
+﻿@model IEnumerable<BookStore.Models.OrderInfo>
+
+@{
+    ViewData["Title"] = "OrderList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+}
+@section css {
+    <!-- page css -->
+    <link href="assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+}
+
+<div class="page-container">
+
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <div class="page-header">
+            <div class="header-sub-title">
+                <nav class="breadcrumb breadcrumb-dash">
+                    <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                    <a class="breadcrumb-item" href="#">Quản Lý Đơn Hàng</a>
+                    <span class="breadcrumb-item active">Danh Sách Đơn Hàng</span>
+                </nav>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row m-b-30">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4 text-right">
+                        <a asp-action="AddOrder" asp-controller="OrderManager">
+                            <button class="btn btn-primary">
+                                <i class="anticon anticon-plus-circle m-r-5"></i>
+                                <span>Thêm Đơn Hàng</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="m-t-25">
+                    <table id="data-table" class="table">
+                        <thead>
+                            <tr>
+                                <th>Mã Đơn</th>
+                                <th>Người Đặt</th>
+                                <th>Tổng Tiền</th>
+                                <th>Tình Trạng</th>
+                                <th>Thời Gian Đặt</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var od in Model)
+                            {
+                                <tr>
+                                    <td>#@od.Id</td>
+                                    <td>@od.CustomerId</td>
+                                    <td>@Cart.ConvertToVND((decimal)od.TotalPrice)</td>
+                                    @if(od.EmployeeId == null)
+                                    {
+                                        <td><button class="btn btn-warning">Chưa Duyệt</button></td>
+                                    }
+                                    else
+                                    {
+                                        <td><button class="btn btn-success">Đã Duyệt</button></td>
+                                    }
+                                    <td>@od.OrderDate</td>
+                                    <td>
+                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                            <a asp-controller="EmployeeManager" asp-action="EmployeeDetail" asp-route-employeeId="@od.Id"><i class="anticon anticon-profile"></i></a>
+                                        </button>
+                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                            <a asp-controller="EmployeeManager" asp-action="EditEmployee" asp-route-employeeId="@od.Id"><i class="anticon anticon-edit"></i></a>
+                                        </button>
+                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded">
+                                            <a asp-controller="EmployeeManager" asp-action="RemoveEmployee" asp-route-employeeId="@od.Id"><i class="anticon anticon-delete"></i></a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- page js -->
+    <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $('#data-table').DataTable();
+    </script>
+}
