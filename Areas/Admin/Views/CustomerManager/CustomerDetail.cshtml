@@ -5,6 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
 
+<<<<<<< HEAD
 <!-- Page Container START -->
 <div class="page-container">
 
@@ -24,7 +25,7 @@
                                     <img src="~/admin/assets/images/avatars/thumb-3.jpg" alt="">
                                 </div>
                                 <div class="m-l-20 m-r-20">
-                                    <h5 class="m-b-5 font-size-18">@Model.FullName</h5>
+                                    <h5 class="m-b-5 font-size-18" disabled="">@Model.FullName</h5>
                                 </div>
                             </div>
                             <hr class="m-v-25">
@@ -32,21 +33,21 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label class="font-weight-semibold" for="userName">User Name:</label>
-                                        <input type="text" class="form-control" id="userName" placeholder="User Name" value="@Model.FullName">
+                                        <input type="text" class="form-control" id="userName" placeholder="User Name" value="@Model.FullName" disabled="">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="font-weight-semibold" for="email">Email:</label>
-                                        <input type="email" class="form-control" id="email" placeholder="email" value="@Model.Email">
+                                        <input type="email" class="form-control" id="email" placeholder="email" value="@Model.Email" disabled="">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label class="font-weight-semibold" for="phoneNumber">Phone Number:</label>
-                                        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" value="@Model.Phone">
+                                        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" value="@Model.Phone" disabled="">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="font-weight-semibold" for="dob">Date of Birth:</label>
-                                        <input type="datetime" class="form-control" id="dob" placeholder="Date of Birth" value="@Model.Birthday">
+                                        <input type="datetime" class="form-control" id="dob" placeholder="Date of Birth" value="@Model.Birthday" disabled="">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -54,15 +55,15 @@
                                         <label class="font-weight-semibold" for="phoneNumber">Gender</label>
                                         @if(Model.Gender == true )
                                         {
-                                                <input type="text" class="form-control" id="dob" placeholder="Address" value="Nam">
+                                            <input type="text" class="form-control" id="dob" placeholder="Address" value="Nam" disabled="">
                                         }
                                         else {
-                                                <input type="text" class="form-control" id="dob" placeholder="Address" value="Nữ">
+                                            <input type="text" class="form-control" id="dob" placeholder="Address" value="Nữ" disabled="">
                                         }
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="font-weight-semibold" for="dob">Address:</label>
-                                        <input type="text" class="form-control" id="dob" placeholder="Address" value="@Model.Address">
+                                        <input type="text" class="form-control" id="dob" placeholder="Address" value="@Model.Address" disabled="">
                                     </div>
                                 </div>
                             </form>
@@ -70,7 +71,11 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <a asp-action="CustomerList" asp-controller="CustomerManager" class="btn btn-primary">Back to List</a>
+            </div>
         </div>
+        
     </div>
     <!-- Content Wrapper END -->
 </div>

@@ -1,9 +1,10 @@
-﻿using BookStore.Areas.Admin.ViewModel;
+using BookStore.Areas.Admin.ViewModel;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using static NuGet.Packaging.PackagingConstants;
+
 
 namespace BookStore.Areas.Admin.Controllers
 {
@@ -56,7 +57,6 @@ namespace BookStore.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult CustomerDetail(int customerId)
         {
-
             var customer = _context.Customers
                                .AsNoTracking()
                                .Where(x => x.Id == customerId)
@@ -141,5 +141,8 @@ namespace BookStore.Areas.Admin.Controllers
         //    }
 
         //}
+
+        //return View(Customer);
+
     }
 }

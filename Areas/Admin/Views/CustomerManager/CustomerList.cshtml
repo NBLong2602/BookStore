@@ -5,64 +5,69 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
 
+@section css {
+    <!-- page css -->
+    <link href="assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+}
+
 <div class="page-container">
 
     <!-- Content Wrapper START -->
     <div class="main-content">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FullName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Phone)
-                    </th>
-                    <th>
-                        Total Price
-                    </th>
-                    <th>
-                        Last Buy
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FullName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Phone)
-                        </td>
-                        <td>
-                           @Cart.ConvertToVND((decimal) item.TotalPrice)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrderDate)
-                        </td>
-                        <td>
-                            <a asp-action="EditCustomer" asp-controller="CustomerManager" asp-route-customerId="@item.Id">Edit</a> |
-                            <a asp-action="CustomerDetail" asp-controller="CustomerManager" asp-route-customerId="@item.Id">Details</a> |
-                            <a asp-action="RemoveCustomer" asp-controller="CustomerManager" asp-route-customerId="@item.Id">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="page-header">
+            <div class="header-sub-title">
+                <nav class="breadcrumb breadcrumb-dash">
+                    <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                    <a class="breadcrumb-item" href="#">Quản Lý Nhân Viên</a>
+                    <span class="breadcrumb-item active">Danh Sách Nhân Viên</span>
+                </nav>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="m-t-25">
+                    <table id="data-table" class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Total Price</th>
+                                <th>Last Buy</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cus in Model)
+                            {
+                                <tr>
+                                    <td>@cus.Id</td>
+                                    <td>@cus.FullName</td>
+                                    <td>@cus.Email</td>
+                                    <td>@cus.Phone</td>
+                                    <td>@Cart.ConvertToVND((decimal)cus.TotalPrice)</td>
+                                    <td>@cus.OrderDate</td>
+                                    <td>
+                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                            <a asp-controller="CustomerManager" asp-action="CustomerDetail" asp-route-customerId="@cus.Id"><i class="anticon anticon-profile"></i></a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <!-- page js -->
+    <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $('#data-table').DataTable();
+    </script>
+}
