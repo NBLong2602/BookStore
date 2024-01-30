@@ -73,7 +73,19 @@
                                     </td>
                                     <td>@product.BookCategory.Name</td>
                                     <td>@Cart.ConvertToVND((decimal)product.Price)</td>
-                                    <td class="text-center">@product.Stock</td>
+                                    @if (product.Stock < 1)
+                                    {
+                                        <td class="text-center"><span class="badge badge-pill badge-danger">0</span></td>
+                                    }
+                                    else if (product.Stock >= 1 && product.Stock <= 20)
+                                    {
+                                        <td class="text-center"><span class="badge badge-pill badge-warning">@product.Stock</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center"><span class="badge badge-pill badge-primary">@product.Stock</span></td>
+                                    }
+                                    
                                     <td>
                                         <div class="d-flex align-items-center">
                                             @if (product.Status < 1)
@@ -91,6 +103,9 @@
                                     <td>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                             <a asp-controller="ProductAdmin" asp-action="ProductDetail" asp-route-productId="@product.Isbn"><i class="anticon anticon-profile"></i></a>
+                                        </button>
+                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                            <a asp-controller="ProductAdmin" asp-action="Edit" asp-route-productId="@product.Isbn"><i class="anticon anticon-edit"></i></a>
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded">
                                             <a asp-controller="ProductAdmin" asp-action="RemoveProduct" asp-route-productId="@product.Isbn"><i class="anticon anticon-delete"></i></a>

@@ -39,27 +39,8 @@
         <div class="container-fluid">
             <div class="tab-content m-t-15">
                 <div class="tab-pane fade show active" id="product-overview">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="media align-items-center">
-                                        <i class="font-size-40 text-success anticon anticon-smile"></i>
-                                        <div class="m-l-15">
-                                            <p class="m-b-0 text-muted">10 ratings</p>
-                                            <div class="star-rating m-t-5">
-                                                <input type="radio" id="star3-5" name="rating-3" value="5" checked disabled /><label for="star3-5" title="5 star"></label>
-                                                <input type="radio" id="star3-4" name="rating-3" value="4" disabled /><label for="star3-4" title="4 star"></label>
-                                                <input type="radio" id="star3-3" name="rating-3" value="3" disabled /><label for="star3-3" title="3 star"></label>
-                                                <input type="radio" id="star3-2" name="rating-3" value="2" disabled /><label for="star3-2" title="2 star"></label>
-                                                <input type="radio" id="star3-1" name="rating-3" value="1" disabled /><label for="star3-1" title="1 star"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                    <div class="row">           
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="media align-items-center">
@@ -72,20 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="media align-items-center">
-                                        <i class="font-size-40 text-primary anticon anticon-message"></i>
-                                        <div class="m-l-15">
-                                            <p class="m-b-0 text-muted">Reviews</p>
-                                            <h3 class="m-b-0 ls-1">27</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="media align-items-center">
@@ -169,7 +137,7 @@
                                             <td>Tình trạng:</td>
                                             @if (Model.Status > 0)
                                             {
-                                                <td><span class="badge badge-info">Đang bán</span></td>
+                                                <td><span class="badge badge-success">Đang bán</span></td>
                                             }
                                             else
                                             {

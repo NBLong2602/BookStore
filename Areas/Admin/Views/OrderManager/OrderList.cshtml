@@ -40,7 +40,7 @@
                         <thead>
                             <tr>
                                 <th>Mã Đơn</th>
-                                <th>Người Đặt</th>
+                                <th>Id_Customer</th>
                                 <th>Tổng Tiền</th>
                                 <th>Tình Trạng</th>
                                 <th>Thời Gian Đặt</th>
@@ -64,7 +64,7 @@
                                     }
                                     <td>@od.OrderDate</td>
                                     <td>
-                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                        @* <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                             <a asp-controller="EmployeeManager" asp-action="EmployeeDetail" asp-route-employeeId="@od.Id"><i class="anticon anticon-profile"></i></a>
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
@@ -72,7 +72,7 @@
                                         </button>
                                         <button class="btn btn-icon btn-hover btn-sm btn-rounded">
                                             <a asp-controller="EmployeeManager" asp-action="RemoveEmployee" asp-route-employeeId="@od.Id"><i class="anticon anticon-delete"></i></a>
-                                        </button>
+                                        </button> *@
                                     </td>
                                 </tr>
                             }
