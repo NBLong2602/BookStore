@@ -4,16 +4,16 @@
     ViewData["Title"] = "AddEmployee";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
-@section css{
+@section css {
     <!-- page css -->
     <link href="~/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
 }
 <div class="page-container">
-
     <!-- Content Wrapper START -->
-    <div class="main-content">
+    <div class="main-content mt-5">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center">Add Employee</h2>
                 <form asp-action="AddEmployee" asp-controller="EmployeeManager" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
@@ -22,21 +22,24 @@
                         <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label class="form-check-label" asp-for="Gender">Gender</label>
-                        <div class="radio">
-                            <input asp-for="Gender" id="radio1" name="radioGender" type="radio" checked="" value="true">
-                            <label asp-for="Gender" for="radio1">Nam</label>
-                        </div>
-                        <div class="radio">
-                            <input asp-for="Gender" id="radio2" name="radioGender" type="radio" value="false">
-                            <label asp-for="Gender" for="radio2">Nữ</label>
+                        <label asp-for="Gender" class="control-label">Gender</label>
+                        <div>
+                            <label class="radio-inline">
+                                <input asp-for="Gender" id="radio1" name="Gender" type="radio" value="True">
+                                <label asp-for="Gender" for="radio1">Nam</label>
+                            </label>
+                            <label class="radio-inline">
+                                <input asp-for="Gender" id="radio2" name="Gender" type="radio" value="False">
+                                <label asp-for="Gender" for="radio2">Nữ</label>
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label asp-for="Birthday" class="control-label">Default Datepicker</label>
                         <div class="input-affix m-b-10">
                             <i class="prefix-icon anticon anticon-calendar"></i>
-                            <input asp-for="Birthday" type="text" class="form-control datepicker-input" placeholder="Pick a date">
+                            <input asp-for="Birthday" type="text" data-date-format="dd/mm/yyyy"
+                            class="form-control datepicker-input" placeholder="Pick a date" required>
                         </div>
                         <span asp-validation-for="Birthday" class="text-danger"></span>
                     </div>
@@ -78,13 +81,18 @@
         </div>
 
         <div>
-            <a asp-action="Index">Back to List</a>
+            <a asp-action="EmployeeList" asp-controller="EmployeeManager">Back to List</a>
         </div>
     </div>
 </div>
 
-@section Scripts{
+@section Scripts {
     <!-- page js -->
     <script src="~/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script>$('.datepicker-input').datepicker();</script>
+    <script>
+        $('.datepicker-input').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+    </script>
 }

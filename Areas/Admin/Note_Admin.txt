@@ -1,3 +1,5 @@
 ﻿- tag open trong _partialviewsidebar => không reload ?
 - WorkFlow Role nv bán hàng : check OrderInfor chưa được xác nhận (mã nhân viên bán hàng = null) thì view những đơn đó lên
 							  update đơn đó với mã nv là người duyệt đơn đó
+
+- Đếm số sp bán ra trong product detail

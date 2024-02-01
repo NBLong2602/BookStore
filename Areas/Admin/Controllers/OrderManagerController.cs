@@ -19,7 +19,7 @@ namespace BookStore.Areas.Admin.Controllers
         [Route("List")]
         public IActionResult OrderList()
         {
-            var lstOrder = _context.OrderInfos.ToList();
+            var lstOrder = _context.OrderInfos.OrderByDescending(x=>x.OrderDate).ToList();
             return View(lstOrder);
         }
     }
