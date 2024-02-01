@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-﻿using BookStore.Areas.Admin.ViewModel;
+using BookStore.Areas.Admin.ViewModel;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using static NuGet.Packaging.PackagingConstants;
-=======
-﻿using BookStore.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
->>>>>>> 6734c78b3578962e13a4939b8c582cc3887fc714
 
 namespace BookStore.Areas.Admin.Controllers
 {
@@ -28,7 +22,6 @@ namespace BookStore.Areas.Admin.Controllers
         [Route("List")]
         public IActionResult CustomerList()
         {
-<<<<<<< HEAD
             var result = (from customer in _context.Customers
                           join order in _context.OrderInfos on customer.Id equals order.CustomerId into customerOrders
                           let latestOrder = customerOrders.OrderByDescending(o => o.OrderDate).FirstOrDefault()
@@ -57,31 +50,16 @@ namespace BookStore.Areas.Admin.Controllers
                 .OrderByDescending(x => x.TotalPrice)
                 .ThenByDescending(x => x.OrderDate);
             return View(result);
-=======
-            var lstCustomer = _context.Customers
-                               .AsNoTracking()
-                               .Where(x => x.CustomerTypeId == 2)
-                               .OrderBy(x => x.Id)
-                               .ToList();
-            return View(lstCustomer);
->>>>>>> 6734c78b3578962e13a4939b8c582cc3887fc714
         }
 
         [Route("Detail")]
         [HttpGet]
         public IActionResult CustomerDetail(int customerId)
         {
-
-<<<<<<< HEAD
             var customer = _context.Customers
-=======
-            var Customer = _context.Customers
->>>>>>> 6734c78b3578962e13a4939b8c582cc3887fc714
                                .AsNoTracking()
                                .Where(x => x.Id == customerId)
                                .FirstOrDefault();
-
-<<<<<<< HEAD
             return View(customer);
         }
 
@@ -161,9 +139,6 @@ namespace BookStore.Areas.Admin.Controllers
         //    }
 
         //}
-=======
-            return View(Customer);
-        }
->>>>>>> 6734c78b3578962e13a4939b8c582cc3887fc714
+        
     }
 }

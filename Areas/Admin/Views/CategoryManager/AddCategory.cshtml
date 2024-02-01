@@ -1,0 +1,35 @@
+﻿@model BookStore.Models.BookCategory
+
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+}
+<div class="page-container">
+
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <h1>AddCategory</h1>
+
+        <h4>BookCategory</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="AddCategory" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="CategoryList">Back to List</a>
+        </div>
+    </div>
+</div>

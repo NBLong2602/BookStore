@@ -59,6 +59,25 @@
             <li class="nav-item dropdown" onclick="toggleClass(this)">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
+                        <i class="anticon anticon-build"></i>
+                    </span>
+                    <span class="title">Quản Lý Danh Mục</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-controller="CategoryManager" asp-action="CategoryList">Danh sách Danh Mục</a>
+                    </li>
+                    <li>
+                        <a asp-controller="CategoryManager" asp-action="AddCategory">Thêm Danh Mục</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" onclick="toggleClass(this)">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
                         <i class="anticon anticon-form"></i>
                     </span>
                     <span class="title">Quản Lý Nhân Viên</span>

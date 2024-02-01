@@ -1,0 +1,75 @@
+﻿@model IEnumerable<BookStore.Models.BookCategory>
+
+@{
+    ViewData["Title"] = "CategoryList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+}
+@section css {
+    <!-- page css -->
+    <link href="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+}
+<div class="page-container">
+
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <div class="page-header">
+            <div class="header-sub-title">
+                <nav class="breadcrumb breadcrumb-dash">
+                    <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                    <a class="breadcrumb-item" href="#">Quản Lý Danh Mục</a>
+                    <span class="breadcrumb-item active">Danh Sách Danh Mục</span>
+                </nav>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row m-b-30">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4 text-right">
+                        <a asp-action="AddCategory" asp-controller="CategoryManager">
+                            <button class="btn btn-primary">
+                                <i class="anticon anticon-plus-circle m-r-5"></i>
+                                <span>Thêm Nhân Viên</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="m-t-25">
+                    <table class="table" id="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        <a asp-action="CategoryEdit" asp-route-categoryId="@item.Id">Edit</a> |
+                                        <a asp-action="RemoveCategory" asp-route-categoryId="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- page js -->
+    <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $('#data-table').DataTable();
+    </script>
+}

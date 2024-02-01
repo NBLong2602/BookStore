@@ -2,7 +2,10 @@
     ViewData["Title"] = "Product List";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
 }
-
+@section css {
+    <!-- page css -->
+    <link href="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+}
 @model IEnumerable<BookStore.Models.Book>
 
 <div class="page-container">
@@ -153,8 +156,11 @@
 
     </script>
     <!-- page js -->
+    <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
-    <script src="~/admin/assets/js/pages/e-commerce-order-list.js"></script>
+    <script>
+        $('#data-table').DataTable();
+    </script>
 
 }
