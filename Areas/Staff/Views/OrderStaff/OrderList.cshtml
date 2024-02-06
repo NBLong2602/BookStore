@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "OrderList";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+    Layout = "~/Areas/Staff/Views/Shared/_LayoutDashBroad.cshtml";
 }
 @section css {
     <!-- page css -->
@@ -40,7 +40,6 @@
                         <thead>
                             <tr>
                                 <th>Mã Đơn</th>
-                                <th>Id_Customer</th>
                                 <th>Tổng Tiền</th>
                                 <th>Tình Trạng</th>
                                 <th>Thời Gian Đặt</th>
@@ -52,28 +51,35 @@
                             {
                                 <tr>
                                     <td>#@od.Id</td>
-                                    <td>@od.CustomerId</td>
                                     <td>@Cart.ConvertToVND((decimal)od.TotalPrice)</td>
-                                    @if(od.EmployeeId == null)
+                                    @if (od.EmployeeId == null)
                                     {
                                         <td><button class="btn btn-warning">Chưa Duyệt</button></td>
+                                        <td>@od.OrderDate</td>
+                                        <td>
+                                            <div class="form-group d-flex align-items-center">
+                                                <div class="switch m-r-10">
+                                                    <input type="checkbox" id="switch-@od.Id">
+                                                    <label for="switch-@od.Id"></label>
+                                                </div>
+                                                <label>Chưa Duyệt</label>
+                                            </div>
+                                        </td>
                                     }
                                     else
                                     {
                                         <td><button class="btn btn-success">Đã Duyệt</button></td>
+                                        <td>@od.OrderDate</td>
+                                        <td>
+                                            <div class="form-group d-flex align-items-center">
+                                                <div class="switch m-r-10">
+                                                    <input type="checkbox" id="switch-@od.Id" disabled="" checked="">
+                                                    <label for="switch-@od.Id"></label>
+                                                </div>
+                                                <label>Đã Duyệt</label>
+                                            </div>
+                                        </td>
                                     }
-                                    <td>@od.OrderDate</td>
-                                    <td>
-                                        @* <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                            <a asp-controller="EmployeeManager" asp-action="EmployeeDetail" asp-route-employeeId="@od.Id"><i class="anticon anticon-profile"></i></a>
-                                        </button>
-                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                            <a asp-controller="EmployeeManager" asp-action="EditEmployee" asp-route-employeeId="@od.Id"><i class="anticon anticon-edit"></i></a>
-                                        </button>
-                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                            <a asp-controller="EmployeeManager" asp-action="RemoveEmployee" asp-route-employeeId="@od.Id"><i class="anticon anticon-delete"></i></a>
-                                        </button> *@
-                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -88,7 +94,6 @@
     <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
-    <script src="~/admin/assets/js/pages/e-commerce-order-list.js"></script>
     <script>
         $('#data-table').DataTable();
     </script>
