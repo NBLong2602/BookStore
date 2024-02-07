@@ -25,7 +25,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="row m-b-30">
-                    <div class="col-lg-8"></div>
+                    <div class="col-lg-8">
+                        <div class="d-md-flex">
+                            <div class="m-b-10 m-r-15">
+                                @await Component.InvokeAsync("DateListFilter")
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-4 text-right">
                         <a asp-action="AddOrder" asp-controller="OrderManager">
                             <button class="btn btn-primary">
@@ -59,8 +65,8 @@
                                         <td>
                                             <div class="form-group d-flex align-items-center">
                                                 <div class="switch m-r-10">
-                                                    <input type="checkbox" id="switch-@od.Id">
-                                                    <label for="switch-@od.Id"></label>
+                                                    <input type="checkbox" id="@od.Id" name="switch">
+                                                    <label for="@od.Id"></label>
                                                 </div>
                                                 <label>Chưa Duyệt</label>
                                             </div>
@@ -91,6 +97,71 @@
 </div>
 
 @section Scripts {
+    <script>
+        document.getElementById('selectDate').addEventListener('change', function () {
+            var selectedValue = this.value;
+            console.log('Selected Value:', selectedValue);
+
+            if (selectedValue == "all") {
+                window.location.href = "/Staff/Manager/Order/List";
+            }
+            // else {
+            //     // Tạo URL phù hợp với router
+            //     var url = "/Staff/Manager/Order/Filter/" + selectedValue;
+
+            //     $.ajax({
+            //         url: url,
+            //         method: "get",
+            //         data: {
+            //             // Điều này là cách bạn truyền dữ liệu tới action FilterProduct
+            //             categoryId: selectedValue,
+            //         },
+            //         success: function (data) {
+            //             // Thực hiện các bước xử lý sau khi nhận được kết quả từ action
+            //             window.location.href = url;
+            //         },
+            //         error: function () {
+            //             console.log('Truyền data fail');
+            //         }
+            //     });
+            // }
+
+        });
+
+    </script>
+    <script>
+        // Lấy ra checkbox bằng name
+        var checkboxes = document.getElementsByName('switch');
+
+        // Đính kèm sự kiện change cho mỗi checkbox
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    console.log('Checkbox ' + this.id + ' đã được chọn.');
+                        var url = "/Staff/Manager/Order/Accept";
+
+                        $.ajax({
+                            url: url,
+                            method: "post",
+                            data: {
+                                 orderId: this.id,
+                            },
+                            success: function (data) {
+                                // window.location.href = url;
+                                console.log(data);
+                            },
+                            error: function () {
+                                console.log('Truyền data fail');
+                            }
+                        });
+                    // Thêm code xử lý khi checkbox được chọn ở đây
+                } else {
+                    console.log('Checkbox ' + this.id + ' đã bỏ chọn.');
+                    // Thêm code xử lý khi checkbox được bỏ chọn ở đây
+                }
+            });
+        });
+    </script>
     <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>

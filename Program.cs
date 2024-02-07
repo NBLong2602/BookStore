@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BookStoreContext>(option => option.UseSqlServer
     (builder.Configuration.GetConnectionString("dbBookStore")));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IOrderInfoRepository, OrderInfoRepository>();
 builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAuthentication(options =>

@@ -1,5 +1,6 @@
 ﻿using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Areas.Staff.Controllers
 {
@@ -22,14 +23,37 @@ namespace BookStore.Areas.Staff.Controllers
             return View(lstOrder);
         }
 
+        //[Route("Filter/{datetime}")]
+        //[HttpGet]
+        //public IActionResult FilterProduct(int datetime)
+        //{
+        //    var lstOrder = _context.Books
+        //                       .AsNoTracking()
+        //                       .Where(x => x.BookCategoryId == categoryId)
+        //                       .Include(categories => categories.BookCategory)
+        //                       .OrderBy(x => x.Isbn)
+        //                       .ToList();
+        //    return View("OrderList", lstOrder);
+        //}
+
         [Route("")]
-        [Route("Order")]
+        [Route("Accept")]
         [HttpPost]
-        public IActionResult AcceptOrder(int orderId)
+        public bool AcceptOrder(int orderId)
         {
-            // FE: Switch On/Off Trạng thái đơn hàng ( CHƯA DUYỆT THÌ CÓ SWITCH)
-            // BE: employeeId = session nhân viên bán hàng => duyệt
-            return View();
+            var order = _context.OrderInfos.Where(x => x.Id.Equals(orderId)).FirstOrDefault();
+            if (order.Id != orderId)
+            {
+                return false;
+            }
+            else
+            {
+                order.EmployeeId = 1;
+                _context.OrderInfos.Update(order);
+                _context.SaveChanges();
+                return true;
+            }
+
         }
 
 
