@@ -11,7 +11,7 @@ namespace BookStore.Controllers
     {
         public Cart? Cart { get; set; }
         private readonly BookStoreContext _context;
-        decimal _feeShip = 50000;
+        decimal _feeShip = 35000;
         decimal _itemPrice = 0;
         decimal _totalPrice = 0;
         public CartController(BookStoreContext ctx)

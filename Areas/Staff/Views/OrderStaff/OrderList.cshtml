@@ -55,41 +55,29 @@
                         <tbody>
                             @foreach (var od in Model)
                             {
+                                var isApproved = od.EmployeeId != null;
+                                var isChecked = isApproved ? "checked" : "";
+                                var statusClass = isApproved ? "btn-success" : "btn-warning";
+                                var statusText = isApproved ? "Đã Duyệt" : "Chưa Duyệt";
                                 <tr>
-                                    <td>#@od.Id</td>
+                                    <td>#@od.Id <a asp-area="Staff" asp-controller="OrderStaff" asp-action="OrderDetail" asp-route-orderId="@od.Id">(Chi Tiết)</a></td>
                                     <td>@Cart.ConvertToVND((decimal)od.TotalPrice)</td>
-                                    @if (od.EmployeeId == null)
-                                    {
-                                        <td><button class="btn btn-warning">Chưa Duyệt</button></td>
-                                        <td>@od.OrderDate</td>
-                                        <td>
-                                            <div class="form-group d-flex align-items-center">
-                                                <div class="switch m-r-10">
-                                                    <input type="checkbox" id="@od.Id" name="switch">
-                                                    <label for="@od.Id"></label>
-                                                </div>
-                                                <label>Chưa Duyệt</label>
+                                    <td><button class="btn @statusClass">@statusText</button></td>
+                                    <td>@od.OrderDate</td>
+                                    <td>
+                                        <div class="form-group d-flex align-items-center">
+                                            <div class="switch m-r-10">
+                                                <input type="checkbox" id="switch-@od.Id" disabled="@isApproved" @isChecked>
+                                                <label for="switch-@od.Id"></label>
                                             </div>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td><button class="btn btn-success">Đã Duyệt</button></td>
-                                        <td>@od.OrderDate</td>
-                                        <td>
-                                            <div class="form-group d-flex align-items-center">
-                                                <div class="switch m-r-10">
-                                                    <input type="checkbox" id="switch-@od.Id" disabled="" checked="">
-                                                    <label for="switch-@od.Id"></label>
-                                                </div>
-                                                <label>Đã Duyệt</label>
-                                            </div>
-                                        </td>
-                                    }
+                                            <label>@statusText</label>
+                                        </div>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

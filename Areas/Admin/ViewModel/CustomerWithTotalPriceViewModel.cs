@@ -1,4 +1,5 @@
 ﻿using BookStore.Models;
+//View/customer/list
 
 namespace BookStore.Areas.Admin.ViewModel
 {

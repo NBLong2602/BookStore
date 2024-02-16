@@ -1,0 +1,14 @@
+﻿@model IEnumerable<BookStore.Models.OrderDetail>
+
+@foreach (var item in Model)
+{
+    int index = 1;
+    <tr>
+        <th>@index</th>
+        <td>@item.BookIsbnNavigation.BookName</td>
+        <td>@item.Quantity</td>
+        <td>@item.BookIsbnNavigation.Price</td>
+        <td>@(item.Quantity * item.BookIsbnNavigation.Price)</td>
+    </tr>
+    index++;
+}

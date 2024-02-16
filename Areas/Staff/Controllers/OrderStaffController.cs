@@ -56,6 +56,16 @@ namespace BookStore.Areas.Staff.Controllers
 
         }
 
+        [Route("{orderId}")]
+        public IActionResult OrderDetail(int orderId)
+        {
+            var order = _context.OrderInfos
+                    .Include(o => o.Customer) // Nạp thông tin khách hàng
+                    .Include(o => o.OrderDetails) // Nạp danh sách các chi tiết đơn hàng
+                        .ThenInclude(od => od.BookIsbnNavigation)
+                    .FirstOrDefault(x => x.Id == orderId);
+            return View(order);
+        }
 
     }
 }

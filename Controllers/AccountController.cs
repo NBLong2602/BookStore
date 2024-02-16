@@ -65,6 +65,7 @@ namespace BookStore.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(CustomerAccountViewModel viewModel)
         {
@@ -114,7 +115,14 @@ namespace BookStore.Controllers
             }
             else
             {
-                ViewBag.Message = "Đăng ký trùng email hoặc username";
+                if (checkEmail == true)
+                {
+                    ViewBag.Message = "Đăng ký trùng email";
+                }
+                else
+                {
+                    ViewBag.Message = "Đăng ký trùng UserName";
+                }
                 return View();
             }
         }

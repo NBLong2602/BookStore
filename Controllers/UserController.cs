@@ -106,12 +106,14 @@ namespace BookStore.Controllers
             var AddressUser = _context.Customers.Where(c => c.Id.Equals(sessionUserId)).FirstOrDefault();
             return View(AddressUser);
         }
+
         [Route("Address/Edit")]
         [HttpGet]
         public IActionResult AddressEdit()
         {
             return View();
         }
+
         [Route("Address/Edit")]
         [HttpPost]
         public IActionResult AddressEdit(string location)
@@ -123,7 +125,7 @@ namespace BookStore.Controllers
                 customerToUpdate.Address = location;
                 _context.Customers.Update(customerToUpdate);
                 _context.SaveChanges();
-                return Redirect("Address");
+                return RedirectToAction("Address", "User");
             }
             else
             {

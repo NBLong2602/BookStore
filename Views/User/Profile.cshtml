@@ -3,6 +3,19 @@
     ViewData["PageHeader"] = "Profile";
     Layout = "~/Views/Shared/_LayoutStore.cshtml";
 }
+
+@{
+    string displayedPhoneNumber = "";
+
+    if (!string.IsNullOrEmpty(Model.Phone) && Model.Phone.Length >= 6)
+    {
+        displayedPhoneNumber = Model.Phone.Substring(0, 3) + new string('*', Model.Phone.Length - 6) + Model.Phone.Substring(Model.Phone.Length - 3);
+    }
+    else
+    {
+        displayedPhoneNumber = Model.Phone; // Hiển thị số điện thoại đầy đủ nếu không đủ ký tự
+    }
+}
 @model Customer
 <!-- Profile Start -->
 <div class="container-fluid pt-5">
@@ -25,28 +38,8 @@
                             <!-- User Information -->
                             <h4 class="mb-3">@Model.FullName</h4>
                             <p>Ngày Sinh: @Model.Birthday?.ToString("dd-MM-yyyy")</p>
-                            @if (@Model.Gender == true)
-                            {
-                                <p>Giới tính: Nam</p>
-                            }
-                            else
-                            {
-                                <p>Giới tính: Nữ</p>
-                            }
+                            <p>Giới tính: @(Model.Gender ? "Nam" : "Nữ")</p>
                             <p>Email: @Model.Email</p>
-                            @{
-                                string displayedPhoneNumber = "";
-
-                                if (!string.IsNullOrEmpty(Model.Phone) && Model.Phone.Length >= 6)
-                                {
-                                    displayedPhoneNumber = Model.Phone.Substring(0, 3) + new string('*', Model.Phone.Length - 6) + Model.Phone.Substring(Model.Phone.Length - 3);
-                                }
-                                else
-                                {
-                                    displayedPhoneNumber = Model.Phone; // Hiển thị số điện thoại đầy đủ nếu không đủ ký tự
-                                }
-                            }
-
                             <p>Số điện thoại: @displayedPhoneNumber</p>
 
                             <!-- Add more profile information as needed -->

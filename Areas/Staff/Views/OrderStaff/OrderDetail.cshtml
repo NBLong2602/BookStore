@@ -1,0 +1,127 @@
+﻿@model BookStore.Models.OrderInfo
+
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+}
+
+<div class="page-container">
+
+
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <div class="page-header">
+            <h2 class="header-title">Invoice</h2>
+            <div class="header-sub-title">
+                <nav class="breadcrumb breadcrumb-dash">
+                    <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                    <a class="breadcrumb-item" href="#">Pages</a>
+                    <span class="breadcrumb-item active">Invoice</span>
+                </nav>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div id="invoice" class="p-h-30">
+                        <div class="m-t-15 lh-2">
+                            <div class="inline-block">
+                                <img class="img-fluid" src="assets/images/logo/logo.png" alt="">
+                                <address class="p-l-10">
+                                    <span class="font-weight-semibold text-dark">Enlink, Inc.</span><br>
+                                    <span>9498 Harvard Street</span><br>
+                                    <span>Fairfield, Chicago Town 06824</span><br>
+                                    <abbr class="text-dark" title="Phone">Phone:</abbr>
+                                    <span>(123) 456-7890</span>
+                                </address>
+                            </div>
+                            <div class="float-right">
+                                <h2>INVOICE</h2>
+                            </div>
+                        </div>
+                        <div class="row m-t-20 lh-2">
+                            <div class="col-sm-9">
+                                <h3 class="p-l-10 m-t-10">Invoice To:</h3>
+                                <address class="p-l-10 m-t-10">
+                                    <span class="font-weight-semibold text-dark">@Model.Customer.FullName</span><br>
+                                    <span>@Model.Customer.Address</span><br>
+                                    <span>@Model.Customer.Phone</span>
+                                </address>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="m-t-80">
+                                    <div class="text-dark text-uppercase d-inline-block">
+                                        <span class="font-weight-semibold text-dark">Invoice No :</span>
+                                    </div>
+                                    <div class="float-right">#@Model.Id</div>
+                                </div>
+                                <div class="text-dark text-uppercase d-inline-block">
+                                    <span class="font-weight-semibold text-dark">Date :</span>
+                                </div>
+                                <div class="float-right">@Model.OrderDate</div>
+                            </div>
+                        </div>
+                        <div class="m-t-20">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Items</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach(var item in Model.OrderDetails)
+                                        {
+                                            int index = 1;
+                                            <tr>
+                                                <th>@index</th>
+                                                <td>@item.BookIsbnNavigation.BookName</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.BookIsbnNavigation.Price</td>
+                                                <td>@(item.Quantity * item.BookIsbnNavigation.Price)</td>
+                                            </tr>
+                                            index++;
+                                        }
+                                        @* <partial name="_PartialListOrderDetail" model="@Model.OrderDetails" /> *@
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row m-t-30 lh-1-8">
+                                <div class="col-sm-12">
+                                    <div class="float-right text-right">
+                                        <p>Shipping Fee: 35,000 VND</p>
+                                        <hr>
+                                        <h3><span class="font-weight-semibold text-dark">Total :</span> @Cart.ConvertToVND((decimal)Model.TotalPrice)</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-t-30 lh-2">
+                                <div class="col-sm-12">
+                                    <div class="border-bottom p-v-20">
+                                        <p class="text-opacity"><small>In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-v-20">
+                                <div class="col-sm-6">
+                                    <img class="img-fluid text-opacity m-t-5" width="100" src="assets/images/logo/logo.png" alt="">
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <small><span class="font-weight-semibold text-dark">Phone:</span> (123) 456-7890</small>
+                                    <br>
+                                    <small>support@themenate.com</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content Wrapper END -->
+
+</div>
