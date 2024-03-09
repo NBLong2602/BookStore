@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
@@ -67,12 +74,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\IventoryManager\Data\" />
-    <Folder Include="Areas\IventoryManager\Models\" />
-    <Folder Include="Areas\IventoryManager\Views\" />
-    <Folder Include="Areas\Staff\Data\" />
-    <Folder Include="Areas\Staff\Models\" />
+    <Folder Include="Areas\InventoryManager\Data\" />
+    <Folder Include="Areas\InventoryManager\Models\" />
+    <Folder Include="Areas\System\Data\" />
+    <Folder Include="Areas\System\Models\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />

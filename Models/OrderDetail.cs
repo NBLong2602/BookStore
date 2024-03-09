@@ -9,7 +9,7 @@ public partial class OrderDetail
 
     public int OrderId { get; set; }
 
-    public string TransactionDate { get; set; } = null!;
+    public DateTime TransactionDate { get; set; }
 
     public int Quantity { get; set; }
 

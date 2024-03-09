@@ -1,0 +1,145 @@
+﻿@model IEnumerable<BookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/InventoryManager/Views/Shared/_LayoutDashBroad.cshtml";
+}
+
+@section css {
+    <!-- page css -->
+    <link href="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+}
+
+<div class="page-container">
+
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <div class="page-header">
+            <div class="header-sub-title">
+                <nav class="breadcrumb breadcrumb-dash">
+                    <a class="breadcrumb-item" asp-action="index" asp-controller=""><i class="anticon anticon-home m-r-5"></i>Home</a>
+                    <a class="breadcrumb-item" asp-action="ProductList" asp-controller="">Quản Lý Sản Phẩm</a>
+                    <span class="breadcrumb-item active" href="#">Danh Sách Sản Phẩm</span>
+                </nav>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row m-b-30">
+                    <div class="col-lg-8">
+                        <div class="d-md-flex">
+                            <div class="m-b-10">
+                                <select class="custom-select" style="min-width: 180px;">
+                                    <option selected>Tất Cả</option>
+                                    <option value="inStock">Còn Hàng</option>
+                                    <option value="inStock">Sắp Hết</option>
+                                    <option value="outOfStock">Hết Hàng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <a asp-action="" asp-controller="">
+                            <button class="btn btn-primary">
+                                <i class="anticon anticon-plus-circle m-r-5"></i>
+                                <span>Thêm Sản Phẩm</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive" style="overflow-x:unset">
+                    <table class="table table-hover e-commerce-table" id="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Sách</th>
+                                <th>Tên Sách</th>
+                                <th>Danh Mục</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Trạng thái</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        #@product.Isbn
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img class="img-fluid rounded" src="@Url.Content("~/ProductsImages/Images/" + product.PictureThumb)" style="max-width: 60px" alt="">
+                                            <h6 class="m-b-0 m-l-10">@product.BookName</h6>
+                                        </div>
+                                    </td>
+                                    <td>@product.BookCategory.Name</td>
+                                    <td>@Cart.ConvertToVND((decimal)product.Price)</td>
+                                    @if (product.Stock < 1)
+                                    {
+                                        <td class="text-center"><span class="badge badge-pill badge-danger">0</span></td>
+                                    }
+                                    else if (product.Stock >= 1 && product.Stock <= 20)
+                                    {
+                                        <td class="text-center"><span class="badge badge-pill badge-warning">@product.Stock</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center"><span class="badge badge-pill badge-primary">@product.Stock</span></td>
+                                    }
+
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (product.Status < 1)
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Chưa Bán</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Đang Bán</div>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                            <a asp-controller="" asp-action="" asp-route-productId="@product.Isbn"><i class="anticon anticon-profile"></i></a>
+                                        </button>
+                                        <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                            <a asp-controller="" asp-action="" asp-route-productId="@product.Isbn"><i class="anticon anticon-edit"></i></a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content Wrapper END -->
+    <!-- Footer START -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="m-b-0">Copyright © 2019 Theme_Nate. All rights reserved.</p>
+            <span>
+                <a href="" class="text-gray m-r-15">Term &amp; Conditions</a>
+                <a href="" class="text-gray">Privacy &amp; Policy</a>
+            </span>
+        </div>
+    </footer>
+    <!-- Footer END -->
+
+</div>
+
+@section Scripts {
+    <!-- page js -->
+    <!-- page js -->
+    <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $('#data-table').DataTable();
+    </script>
+
+}

@@ -32,14 +32,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 text-right">
+                    @* <div class="col-lg-4 text-right">
                         <a asp-action="AddOrder" asp-controller="OrderManager">
                             <button class="btn btn-primary">
                                 <i class="anticon anticon-plus-circle m-r-5"></i>
                                 <span>Thêm Đơn Hàng</span>
                             </button>
                         </a>
-                    </div>
+                    </div> *@
                 </div>
                 <div class="m-t-25">
                     <table id="data-table" class="table">
@@ -60,11 +60,18 @@
                                 var statusClass = isApproved ? "btn-success" : "btn-warning";
                                 var statusText = isApproved ? "Đã Duyệt" : "Chưa Duyệt";
                                 <tr>
-                                    <td>#@od.Id <a asp-area="Staff" asp-controller="OrderStaff" asp-action="OrderDetail" asp-route-orderId="@od.Id">(Chi Tiết)</a></td>
+                                    <td>#@od.Id</td>
                                     <td>@Cart.ConvertToVND((decimal)od.TotalPrice)</td>
                                     <td><button class="btn @statusClass">@statusText</button></td>
                                     <td>@od.OrderDate</td>
                                     <td>
+                                        <a asp-action="OrderDetail" asp-controller="OrderStaff" asp-area="Staff" asp-route-orderId="@od.Id">
+                                            <button class="btn btn-primary m-r-5">
+                                                Thông Tin Đơn
+                                            </button>
+                                        </a>
+                                    </td>
+                                    @* <td>
                                         <div class="form-group d-flex align-items-center">
                                             <div class="switch m-r-10">
                                                 <input type="checkbox" id="switch-@od.Id" disabled="@isApproved" @isChecked>
@@ -72,7 +79,7 @@
                                             </div>
                                             <label>@statusText</label>
                                         </div>
-                                    </td>
+                                    </td> *@
                                 </tr>
                             }
                         </tbody>
@@ -117,7 +124,7 @@
         });
 
     </script>
-    <script>
+    @* <script>
         // Lấy ra checkbox bằng name
         var checkboxes = document.getElementsByName('switch');
 
@@ -149,7 +156,7 @@
                 }
             });
         });
-    </script>
+    </script> *@
     <!-- page js -->
     <script src="~/admin/assets/vendors/datatables/jquery.dataTables.min.js"></script>
     <script src="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.js"></script>

@@ -26,7 +26,7 @@
                         @foreach (var item in Model.lineCollection)
                         {
                             <tr>
-                                <td class="align-middle"><img src="/img/book-1.jpg" alt="" style="width: 50px;"> @item.Book.BookName</td>
+                                <td class="align-middle"><img src="@Url.Content("../ProductsImages/Images/" + @item.Book.PictureThumb)" alt="" style="width: 50px;"> @item.Book.BookName</td>
                                 <td class="align-middle">@Cart.ConvertToVND((decimal)item.Book.Price)</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">

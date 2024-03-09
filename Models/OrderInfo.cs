@@ -11,7 +11,7 @@ public partial class OrderInfo
 
     public int CustomerId { get; set; }
 
-    public string? OrderDate { get; set; }
+    public DateTime? OrderDate { get; set; }
 
     public float TotalPrice { get; set; }
 

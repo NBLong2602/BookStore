@@ -1,6 +1,7 @@
 ﻿using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace BookStore.Areas.Staff.Controllers
 {
@@ -23,35 +24,40 @@ namespace BookStore.Areas.Staff.Controllers
             return View(lstOrder);
         }
 
-        //[Route("Filter/{datetime}")]
-        //[HttpGet]
-        //public IActionResult FilterProduct(int datetime)
-        //{
-        //    var lstOrder = _context.Books
-        //                       .AsNoTracking()
-        //                       .Where(x => x.BookCategoryId == categoryId)
-        //                       .Include(categories => categories.BookCategory)
-        //                       .OrderBy(x => x.Isbn)
-        //                       .ToList();
-        //    return View("OrderList", lstOrder);
-        //}
+        [Route("Filter")]
+        public IActionResult FilterOrder(int daysAgo)
+        {
+            if (daysAgo == 999)
+            {
+               return RedirectToAction("OrderList");
+            }
+            else
+            {
+                DateTime currentTime = DateTime.Now.AddDays(-daysAgo).Date;
+                var lstFilterOrder = _context.OrderInfos
+                                   .Where(x => x.OrderDate >= currentTime)
+                                   .ToList();
+                return View("OrderList", lstFilterOrder);
+            }
 
-        [Route("")]
+
+        }
+
         [Route("Accept")]
-        [HttpPost]
-        public bool AcceptOrder(int orderId)
+        public IActionResult AcceptOrder(int orderId)
         {
             var order = _context.OrderInfos.Where(x => x.Id.Equals(orderId)).FirstOrDefault();
             if (order.Id != orderId)
             {
-                return false;
+                return RedirectToAction("OrderList");
             }
             else
             {
-                order.EmployeeId = 1;
+                var EmployeeId = HttpContext.Session.GetString("EmployeeId");
+                order.EmployeeId = int.Parse(EmployeeId);
                 _context.OrderInfos.Update(order);
                 _context.SaveChanges();
-                return true;
+                return RedirectToAction("OrderList");
             }
 
         }

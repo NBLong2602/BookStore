@@ -1,9 +1,13 @@
 ﻿@model IEnumerable<OrderInfo>
 
-<select class="custom-select" id="selectDate" style="min-width: 180px;">
-    <option selected>Filter By Date</option>
-    <option value="all">All</option>
+<div class="custom-select" id="selectDate" style="min-width: 180px;">
+    @*    <option selected>Filter By Date</option>
+     <option value="all">All</option>
     <option value="all">Hôm Nay</option>
-    <option value="all">Tuần</option>
-    <option value="all">Tháng</option>
-</select>
+    <option value="all">7 ngày qua</option>
+    <option value="all">Tháng này</option> *@
+    <a asp-controller="OrderStaff" asp-action="FilterOrder" asp-route-daysAgo="0" class="nav-item nav-link">Hôm Nay</a>
+    <a asp-controller="OrderStaff" asp-action="FilterOrder" asp-route-daysAgo="7" class="nav-item nav-link">Tuần</a>
+    <a asp-controller="OrderStaff" asp-action="FilterOrder" asp-route-daysAgo="30" class="nav-item nav-link">Tháng</a>
+    <a asp-controller="OrderStaff" asp-action="FilterOrder" asp-route-daysAgo="999" class="nav-item nav-link">Tất Cả</a>
+</div>

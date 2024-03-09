@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "OrderDetail";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+    Layout = "~/Areas/Staff/Views/Shared/_LayoutDashBroad.cshtml";
 }
 
 <div class="page-container">
@@ -74,19 +74,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach(var item in Model.OrderDetails)
+                                        @foreach (var item in Model.OrderDetails)
                                         {
                                             int index = 1;
                                             <tr>
                                                 <th>@index</th>
                                                 <td>@item.BookIsbnNavigation.BookName</td>
                                                 <td>@item.Quantity</td>
-                                                <td>@item.BookIsbnNavigation.Price</td>
-                                                <td>@(item.Quantity * item.BookIsbnNavigation.Price)</td>
+                                                <td>@Cart.ConvertToVND((decimal)item.BookIsbnNavigation.Price)</td>
+                                                <td>@Cart.ConvertToVND((decimal)(item.Quantity * item.BookIsbnNavigation.Price))</td>
                                             </tr>
                                             index++;
                                         }
-                                        @* <partial name="_PartialListOrderDetail" model="@Model.OrderDetails" /> *@
                                     </tbody>
                                 </table>
                             </div>
@@ -96,6 +95,20 @@
                                         <p>Shipping Fee: 35,000 VND</p>
                                         <hr>
                                         <h3><span class="font-weight-semibold text-dark">Total :</span> @Cart.ConvertToVND((decimal)Model.TotalPrice)</h3>
+                                        <hr>
+                                        @if (Model.EmployeeId == null)
+                                        {
+                                            <a asp-area="Staff" asp-controller="OrderStaff" asp-action="AcceptOrder" asp-route-orderId="@Model.Id">
+                                                <button class="btn btn-primary m-r-5">Xác nhận đơn hàng</button>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-primary m-r-5" disabled style="background-color: yellow;border-color: yellow; color:black">
+                                                Đơn hàng đã được xác nhận
+                                            </button>
+                                        }
+
                                     </div>
                                 </div>
                             </div>

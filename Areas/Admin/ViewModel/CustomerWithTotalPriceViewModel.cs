@@ -17,7 +17,7 @@ namespace BookStore.Areas.Admin.ViewModel
 
         public float TotalPrice { get; set; }
 
-        public string? OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
 
         public CustomerWithTotalPriceViewModel(Customer customer, OrderInfo orderInfo) {
             Id = customer.Id;
