@@ -1,6 +1,7 @@
 ﻿using Azure;
 using BookStore.Models;
 using BookStore.Models.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using X.PagedList;
 
 namespace BookStore.Controllers
 {
+    [AllowAnonymous]
     public class ProductController : Controller
     {
         private readonly BookStoreContext _context;
@@ -39,7 +41,6 @@ namespace BookStore.Controllers
             ViewBag.categoryId = categoryId;
             return View(lst);
         }
-        [AdminAuthorize]
         public IActionResult ProductDetail(int productId)
         {
             var product = _context.Books.Where(x => x.Isbn == productId).FirstOrDefault();

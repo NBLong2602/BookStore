@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using BookStore.Areas.Models.Authentication;
+using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -7,6 +8,8 @@ namespace BookStore.Areas.Staff.Controllers
 {
     [Area("Staff")]
     [Route("Staff/Manager/Order")]
+    [Authentication]
+    [StaffAuthorize]
     public class OrderStaffController : Controller
     {
         private readonly BookStoreContext _context;
@@ -53,7 +56,7 @@ namespace BookStore.Areas.Staff.Controllers
             }
             else
             {
-                var EmployeeId = HttpContext.Session.GetString("EmployeeId");
+                var EmployeeId = HttpContext.Session.GetString("AccountId");
                 order.EmployeeId = int.Parse(EmployeeId);
                 _context.OrderInfos.Update(order);
                 _context.SaveChanges();

@@ -8,7 +8,7 @@ using X.PagedList;
 
 namespace BookStore.Controllers
 {
-
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly BookStoreContext _context;
@@ -18,7 +18,7 @@ namespace BookStore.Controllers
             _context = ctx;
         }
 
-        [AllowAnonymous]
+        
         public IActionResult Index(int? page)
         {
             int pageSize = 8;

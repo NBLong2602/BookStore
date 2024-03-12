@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookStore.Areas.Models.Authentication;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Areas.Admin.Controllers
 {
@@ -9,6 +10,8 @@ namespace BookStore.Areas.Admin.Controllers
     {
         [Route("")]
         [Route("index")]
+        [Authentication]
+        [AdminAuthorize]
         public IActionResult Index()
         {
             return View();

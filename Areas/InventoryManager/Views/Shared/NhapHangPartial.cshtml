@@ -1,0 +1,62 @@
+﻿@model BookStore.Models.IventoryProduct
+
+@{
+    string title = "Nhập Sản Phẩm";
+    bool disableInputs = false;
+
+    if (Model.TrangThaiDuyet == 0)
+    {
+        title = "Sửa Đơn Nhập";
+    }
+    else if (Model.TrangThaiDuyet == 1)
+    {
+        title = "Xem Đơn Nhập";
+        disableInputs = true;
+    }
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@title - "@Model.MaSachNavigation.BookName"</h5>
+            <button type="button" class="close" data-dismiss="modal">
+                <i class="anticon anticon-close"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label asp-for="MaSach" class="font-weight-semibold">Tên Sản Phẩm</label>
+                <input type="hidden" asp-for="MaSach" />
+                <span class="form-control" disabled>@Model.MaSachNavigation.BookName</span>
+                <span asp-validation-for="MaSach" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuongNhap" class="font-weight-semibold">Số Lượng</label>
+                <input asp-for="SoLuongNhap" class="form-control" disabled="@disableInputs" />
+                <span asp-validation-for="SoLuongNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DonGiaNhap" class="font-weight-semibold">Đơn Giá</label>
+                <input asp-for="DonGiaNhap" class="form-control" disabled="@disableInputs"></input>
+                <span asp-validation-for="DonGiaNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThanhTien" class="font-weight-semibold">Thành Tiền</label>
+                <input asp-for="ThanhTien" class="form-control" disabled="@disableInputs"></input>
+                <span asp-validation-for="ThanhTien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayNhap" class="font-weight-semibold">Ngày Nhập</label>
+                <input asp-for="NgayNhap" class="form-control" disabled="@disableInputs"></input>
+                <span asp-validation-for="NgayNhap" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            @if (!disableInputs)
+            {
+                <button type="button" class="btn btn-primary">Save changes</button>
+            }
+        </div>
+    </div>
+</div>

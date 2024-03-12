@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using BookStore.Areas.Models.Authentication;
+using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,6 +9,8 @@ namespace BookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Manager/Employee")]
+    [Authentication]
+    [AdminAuthorize]
     public class EmployeeManagerController : Controller
     {
         private readonly BookStoreContext _context;

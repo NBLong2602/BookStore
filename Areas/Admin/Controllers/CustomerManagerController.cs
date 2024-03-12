@@ -1,4 +1,5 @@
 using BookStore.Areas.Admin.ViewModel;
+using BookStore.Areas.Models.Authentication;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,8 @@ namespace BookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Manager/Customer")]
+    [Authentication]
+    [AdminAuthorize]
     public class CustomerManagerController : Controller
     {
         private readonly BookStoreContext _context;
@@ -42,7 +45,7 @@ namespace BookStore.Areas.Admin.Controllers
                     FullName = x.FullName,
                     Email = x.Email,
                     Phone = x.Phone,
-                    TotalPrice = x.TotalPrice,
+                    TotalPrice = (float)x.TotalPrice,
                     OrderDate = x.OrderDate,
                     // Các thuộc tính khác của Customer nếu có
                 })

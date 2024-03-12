@@ -27,7 +27,6 @@ namespace BookStore.Areas.System.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
@@ -42,7 +41,7 @@ namespace BookStore.Areas.System.Controllers
                     if (staff != null)
                     {
                         HttpContext.Session.SetString("Role", "Employee");
-                        HttpContext.Session.SetString("EmployeeId", staff.Id.ToString());
+                        HttpContext.Session.SetString("AccountId", staff.Id.ToString());
                         return RedirectToAction("OrderList", "OrderStaff", new { area = "Staff" });
                     }
                 }
@@ -58,12 +57,14 @@ namespace BookStore.Areas.System.Controllers
                             if (model.role == 1)
                             {
                                 HttpContext.Session.SetString("Role", "Admin");
+                                HttpContext.Session.SetString("AccountId", user.CustomerId.ToString());
                                 return RedirectToAction("Index", "HomeAdmin", new { area = "Admin" });
                             }
                             else if (model.role == 2)
                             {
                                 HttpContext.Session.SetString("Role", "Inventory");
-                                HttpContext.Session.SetString("InventoryId", user.CustomerId.ToString());
+                                HttpContext.Session.SetString("AccountId", user.CustomerId.ToString());
+                                //HttpContext.Session.SetString("InventoryId", user.CustomerId.ToString());
                                 return RedirectToAction("Index", "HomeInventory", new { area = "InventoryManager" });
                             }
                         }
@@ -88,5 +89,12 @@ namespace BookStore.Areas.System.Controllers
             }
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("Role");
+            HttpContext.Session.Remove("AccountId");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

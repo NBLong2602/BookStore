@@ -9,9 +9,9 @@ public partial class OrderDetail
 
     public int OrderId { get; set; }
 
-    public DateTime TransactionDate { get; set; }
+    public DateTime? TransactionDate { get; set; }
 
-    public int Quantity { get; set; }
+    public int? Quantity { get; set; }
 
     public string? Note { get; set; }
 

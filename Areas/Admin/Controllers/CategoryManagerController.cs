@@ -1,12 +1,14 @@
-﻿using BookStore.Models;
+﻿using BookStore.Areas.Models.Authentication;
+using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Manager/Category")]
+    [Authentication]
+    [AdminAuthorize]
     public class CategoryManagerController : Controller
     {
         private readonly BookStoreContext _context;

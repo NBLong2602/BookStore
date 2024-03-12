@@ -34,20 +34,9 @@ public partial class Book
     public int Stock { get; set; }
 
     public virtual Author? Author { get; set; }
-
-
-
-
     public virtual BookCategory? BookCategory { get; set; }
-
-
-
-
     public virtual Publisher? Publisher { get; set; }
-
-
-
-
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+    public virtual ICollection<IventoryProduct> IventoryProducts { get; set; } = new List<IventoryProduct>();
 
 }

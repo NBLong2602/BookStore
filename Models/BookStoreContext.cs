@@ -29,6 +29,8 @@ public partial class BookStoreContext : DbContext
 
     public virtual DbSet<Employee> Employees { get; set; }
 
+    public virtual DbSet<IventoryProduct> IventoryProducts { get; set; }
+
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
     public virtual DbSet<OrderInfo> OrderInfos { get; set; }
@@ -151,6 +153,27 @@ public partial class BookStoreContext : DbContext
             entity.Property(e => e.Username).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<IventoryProduct>(entity =>
+        {
+            entity.ToTable("Iventory_product");
+
+            entity.Property(e => e.DonGiaNhap).HasColumnType("decimal(22, 3)");
+            entity.Property(e => e.NgayNhap).HasColumnType("datetime");
+            entity.Property(e => e.ThanhTien).HasColumnType("decimal(22, 3)");
+            entity.Property(e => e.TrangThaiDuyet).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Vat)
+                .HasColumnType("decimal(22, 3)")
+                .HasColumnName("VAT");
+
+            entity.HasOne(d => d.MaSachNavigation).WithMany(p => p.IventoryProducts)
+                .HasForeignKey(d => d.MaSach)
+                .HasConstraintName("FK_Iventory_product_Book");
+
+            entity.HasOne(d => d.User).WithMany(p => p.IventoryProducts)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_Iventory_product_Customer");
+        });
+
         modelBuilder.Entity<OrderDetail>(entity =>
         {
             entity.HasKey(e => new { e.BookIsbn, e.OrderId }).HasName("PK__OrderDet__EB20C2CD85C61E59");
@@ -158,39 +181,32 @@ public partial class BookStoreContext : DbContext
             entity.ToTable("OrderDetail");
 
             entity.Property(e => e.Note).HasMaxLength(255);
-            entity.Property(e => e.TransactionDate)
-                .HasMaxLength(80)
-                .IsUnicode(false);
+            entity.Property(e => e.TransactionDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.BookIsbnNavigation).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.BookIsbn)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKOrderDetai572182");
+                .HasConstraintName("FK_OrderDetail_Book");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKOrderDetai762072");
+                .HasConstraintName("FK_OrderDetail_OrderInfo");
         });
 
         modelBuilder.Entity<OrderInfo>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OrderInf__3214EC07FCF33084");
-
             entity.ToTable("OrderInfo");
 
-            entity.Property(e => e.OrderDate)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+            entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.OrderInfos)
                 .HasForeignKey(d => d.CustomerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKOrder556775");
+                .HasConstraintName("FK_OrderInfo_Customer");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.OrderInfos)
                 .HasForeignKey(d => d.EmployeeId)
-                .HasConstraintName("FKOrder900062");
+                .HasConstraintName("FK_OrderInfo_Employee");
         });
 
         modelBuilder.Entity<Publisher>(entity =>

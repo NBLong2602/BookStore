@@ -25,7 +25,7 @@ namespace BookStore.Areas.Admin.ViewModel
             FullName = customer.FullName;
             Email = customer.Email;
             Phone = customer.Phone;
-            TotalPrice = orderInfo.TotalPrice;
+            TotalPrice = (float)orderInfo.TotalPrice;
             OrderDate = orderInfo.OrderDate;
         }
 

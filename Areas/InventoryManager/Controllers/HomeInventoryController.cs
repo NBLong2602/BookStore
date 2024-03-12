@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using BookStore.Areas.Models.Authentication;
+using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,8 @@ namespace BookStore.Areas.IventoryManager.Controllers
     [Area("InventoryManager")]
     [Route("Inventory")]
     [Route("Inventory/Home")]
+    [Authentication]
+    [InventoryAuthorize]
     public class HomeInventoryController : Controller
     {
         private readonly BookStoreContext _context;
@@ -20,12 +23,13 @@ namespace BookStore.Areas.IventoryManager.Controllers
         [Route("index")]
         public IActionResult Index()
         {
-            var lstProduct = _context.Books
+            var lstNhapHang = _context.IventoryProducts
                               .AsNoTracking()
-                              .Include(categories => categories.BookCategory)
-                              .OrderBy(x => x.Isbn)
+                              .Include(x => x.MaSachNavigation)
+                              .Include(x => x.User)
+                              .OrderBy(x => x.MaSach)
                               .ToList();
-            return View(lstProduct);
+            return View(lstNhapHang);
         }
     }
 }

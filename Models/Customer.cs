@@ -25,5 +25,7 @@ public partial class Customer
 
     public virtual CustomerType CustomerType { get; set; } = null!;
 
+    public virtual ICollection<IventoryProduct> IventoryProducts { get; set; } = new List<IventoryProduct>();
+
     public virtual ICollection<OrderInfo> OrderInfos { get; set; } = new List<OrderInfo>();
 }
