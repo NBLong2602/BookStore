@@ -1,0 +1,87 @@
+﻿@Model BookStore.Models.IventoryProduct
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
+}
+
+@section css {
+    <!-- page css -->
+    <link href="~/admin/assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+}
+
+<div class="page-container">
+    <div class="main-content">
+        <div class="table-responsive" style="overflow-x:unset">
+            <table class="table table-hover e-commerce-table" id="data-table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tên Sách</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Tổng giá trị</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Ngày nhập</th>
+                        <th class="text-center">Người nhập</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td class="text-center">
+                                <div class="d-flex align-Models-center">
+                                    <img class="img-fluid rounded" src="@Url.Content("~/ModelsImages/Images/" + Model.MaSachNavigation.PictureThumb)" style="max-width: 60px" alt="">
+                                    <h6 class="m-b-0 m-l-10">@Model.MaSachNavigation.BookName</h6>
+                                </div>
+                            </td>
+                            <td class="text-center"><span class="badge badge-pill badge-primary">@Model.SoLuongNhap</span></td>
+                            <td class="text-center">@Cart.ConvertToVND((decimal)Model.ThanhTien)</td>
+                            <td class="text-center">
+                                <div>
+                                    @if (Model.TrangThaiDuyet == 0)
+                                    {
+                                        <span class="badge badge-warning">Chưa duyệt</span>
+                                    }
+                                    else if (Model.TrangThaiDuyet == 1)
+                                    {
+                                        <span class="badge badge-success">Đã duyệt</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Đã Hủy</span>
+                                    }
+                                </div>
+                            </td>
+                            <td class="text-center">@Model.NgayNhap</td>
+                            <td class="text-center">@Model.User.FullName</td>
+                            <td class="text-center">
+                                <div class="dropdown dropdown-animated scale-left">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Thao Tác
+                                    </button>
+                                    <div class="dropdown-menu">
+
+                                        <button class="dropdown-Model" type="button">
+                                            <a asp-area="Admin" asp-controller="InventoryManager" asp-action="View" asp-route-InvenOrderId="@Model.Id" class="dropdown-Model">
+                                                <i class="anticon anticon-delete" style="margin-right: 10px;"></i>Xem đơn
+                                            </a>
+                                        </button>
+                                        <button class="dropdown-Model" type="button">
+                                            <a asp-area="Admin" asp-controller="InventoryManager" asp-action="CancelById" asp-route-khoId="@Model.Id" class="dropdown-Model">
+                                                <i class="anticon anticon-delete" style="margin-right: 10px;"></i>Duyệt đơn
+                                            </a>
+                                        </button>
+                                        <button class="dropdown-Model" type="button">
+                                            <a asp-area="Admin" asp-controller="InventoryManager" asp-action="CancelById" asp-route-khoId="@Model.Id" class="dropdown-Model">
+                                                <i class="anticon anticon-delete" style="margin-right: 10px;"></i>Hủy đơn nhập
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                    </tr>
+                </tbody>        
+        </div>
+        
+    </div>
+
+</div>

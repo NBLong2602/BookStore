@@ -211,7 +211,7 @@
                 <div class="side-nav-inner">
                     <ul class="side-nav-menu scrollable">
                         <li class="nav-item">
-                            <a>
+                            <a asp-area="IventoryManager" asp-controller="HomeInventory" asp-action="ListProduct">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-dashboard"></i>
                                 </span>
@@ -233,10 +233,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#">Danh sách hàng hóa</a>
+                                    <a asp-area="InventoryManager" asp-controller="HomeInventory" asp-action="ListProduct">Danh sách hàng hóa</a>
                                 </li>
                                 <li>
-                                    <a href="#">Lịch sử nhập hàng</a>
+                                    <a asp-area="InventoryManager" asp-controller="HomeInventory" asp-action="Index">Lịch sử nhập hàng</a>
                                 </li>
                             </ul>
                         </li>

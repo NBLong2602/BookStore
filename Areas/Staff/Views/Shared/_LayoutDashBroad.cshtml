@@ -240,9 +240,9 @@
                                 <li>
                                     <a asp-area="Staff" asp-controller="OrderStaff" asp-action="OrderList">Danh sách đơn hàng</a>
                                 </li>
-                                <li>
-                                    <a asp-area="Staff" asp-controller="OrderStaff" asp-action="OrderList">Thông tin vận chuyển và giao hàng</a>
-                                </li>
+                                @* <li>
+                                    <a href="#">Thông tin vận chuyển và giao hàng</a>
+                                </li> *@
                             </ul>
                         </li>
                         <li class="nav-item dropdown" onclick="toggleClass(this)">
@@ -250,17 +250,14 @@
                                 <span class="icon-holder">
                                     <i class="anticon anticon-form"></i>
                                 </span>
-                                <span class="title">Quản Lý Khách Hàng</span>
+                                <span class="title">Thông tin sản phẩm</span>
                                 <span class="arrow">
                                     <i class="arrow-icon"></i>
                                 </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a asp-area="Staff" asp-controller="OrderStaff" asp-action="OrderList">Hồ sơ khách hàng</a>
-                                </li>
-                                <li>
-                                    <a asp-area="Staff" asp-controller="OrderStaff" asp-action="OrderList">Giá trị khách hàng</a>
+                                    <a asp-area="Staff" asp-controller="OrderStaff" asp-action="ListProduct">Danh sách sản phẩm</a>
                                 </li>
                             </ul>
                         </li>

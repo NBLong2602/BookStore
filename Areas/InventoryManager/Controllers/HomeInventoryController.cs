@@ -31,5 +31,18 @@ namespace BookStore.Areas.IventoryManager.Controllers
                               .ToList();
             return View(lstNhapHang);
         }
+
+        [Route("")]
+        [Route("ListProduct")]
+        public IActionResult ListProduct()
+        {
+            var lstProduct = _context.Books
+                               .AsNoTracking()
+                               .Include(categories => categories.BookCategory)
+                               .OrderBy(x => x.Isbn)
+                               .ToList();
+            return View(lstProduct);
+        }
+
     }
 }

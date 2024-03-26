@@ -32,9 +32,9 @@
                     <li>
                         <a asp-controller="OrderManager" asp-action="OrderList">Danh sách đơn hàng</a>
                     </li>
-                    <li>
+                    @* <li>
                         <a asp-controller="HomeAdmin" asp-action="index">Thông tin vận chuyển và giao hàng</a>
-                    </li>
+                    </li> *@
                 </ul>
             </li>
             <li class="nav-item dropdown" onclick="toggleClass(this)">
@@ -51,9 +51,9 @@
                     <li>
                         <a asp-controller="ProductAdmin" asp-action="ProductList">Danh sách sản phẩm</a>
                     </li>
-                    <li>
+                    @* <li>
                         <a asp-controller="HomeAdmin" asp-action="index">Điều chỉnh giá sản phẩm</a>
-                    </li>
+                    </li> *@
                 </ul>
             </li>
             <li class="nav-item dropdown" onclick="toggleClass(this)">
@@ -70,9 +70,9 @@
                     <li>
                         <a asp-controller="CategoryManager" asp-action="CategoryList">Danh sách Danh Mục</a>
                     </li>
-                    <li>
+                    @* <li>
                         <a asp-controller="CategoryManager" asp-action="AddCategory">Thêm Danh Mục</a>
-                    </li>
+                    </li> *@
                 </ul>
             </li>
             <li class="nav-item dropdown" onclick="toggleClass(this)">
@@ -89,9 +89,9 @@
                     <li>
                         <a asp-controller="EmployeeManager" asp-action="EmployeeList">Danh sách nhân viên bán hàng</a>
                     </li>
-                    <li>
+                    @* <li>
                         <a asp-controller="HomeAdmin" asp-action="index">Lịch trực và phân công công việc</a>
-                    </li>
+                    </li> *@
                 </ul>
             </li>
             <li class="nav-item dropdown" onclick="toggleClass(this)">
@@ -108,9 +108,9 @@
                     <li>
                         <a asp-controller="CustomerManager" asp-action="CustomerList">Hồ sơ khách hàng</a>
                     </li>
-                    <li>
+                    @* <li>
                         <a asp-controller="CustomerManager" asp-action="CustomerList">Giá trị khách hàng</a>
-                    </li>
+                    </li> *@
                 </ul>
             </li>
             <li class="nav-item dropdown" onclick="toggleClass(this)">
@@ -125,14 +125,14 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a asp-controller="HomeAdmin" asp-action="index">Số lượng tồn</a>
+                        <a asp-controller="InventoryManager" asp-action="Product">Số lượng tồn</a>
                     </li>
                     <li>
-                        <a asp-controller="HomeAdmin" asp-action="index">Lịch sử nhập hàng</a>
+                        <a asp-controller="InventoryManager" asp-action="Index">Lịch sử nhập hàng</a>
                     </li>
-                    <li>
+                    @* <li>
                         <a asp-controller="HomeAdmin" asp-action="index">Báo cáo hàng tồn kho</a>
-                    </li>
+                    </li> *@
                 </ul>
             </li>
             <li class="nav-item dropdown" onclick="toggleClass(this)">

@@ -77,11 +77,11 @@ namespace BookStore.Areas.System.Controllers
             {
                 switch (roleLogged)
                 {
-                    case "staff":
+                    case "Staff":
                         return RedirectToAction("OrderList", "OrderStaff", new { area = "Staff" });
-                    case "inventory":
+                    case "Inventory":
                         return RedirectToAction("Index", "HomeInventory", new { area = "InventoryManager" });
-                    case "admin":
+                    case "Admin":
                         return RedirectToAction("Index", "HomeAdmin", new { area = "Admin" });
                     default:
                         return RedirectToAction("Index", "Login", new { area = "System" });
@@ -89,6 +89,8 @@ namespace BookStore.Areas.System.Controllers
             }
         }
 
+        [Route("Logout")]
+        [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("Role");

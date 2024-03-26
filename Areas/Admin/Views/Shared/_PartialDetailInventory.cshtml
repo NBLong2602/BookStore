@@ -1,18 +1,8 @@
 ﻿@model BookStore.Models.IventoryProduct
 
 @{
-    string title = "";
-    bool disableInputs = false;
-
-    if (Model.TrangThaiDuyet == 0)
-    {
-        title = "Sửa Đơn Nhập";
-    }
-    else if (Model.TrangThaiDuyet == 1 || Model.TrangThaiDuyet == 2 || Model.TrangThaiDuyet == 3)
-    {
-        title = "Xem Đơn Nhập";
-        disableInputs = true;
-    }
+    string title = "Xem Đơn Nhập";
+    bool disableInputs = true;
 }
 
 <div class="modal-dialog">
@@ -28,36 +18,41 @@
             <input type="hidden" asp-for="Id" />
             <div class="modal-body">
                 <div class="form-group">
+                    <label asp-for="User.FullName" class="font-weight-semibold">Người đề ngh</label>
+                    <span class="form-control" disabled>@Model.User.FullName</span>
+                    <span asp-validation-for="User.FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="MaSach" class="font-weight-semibold">Tên Sản Phẩm</label>
-                    <input type="hidden" asp-for="MaSach" />
                     <span class="form-control" disabled>@Model.MaSachNavigation.BookName</span>
                     <span asp-validation-for="MaSach" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SoLuongNhap" class="font-weight-semibold">Số Lượng</label>
-                    <input asp-for="SoLuongNhap" class="form-control" disabled="@disableInputs" />
+                    <span class="form-control" disabled>@Model.SoLuongNhap</span>
                     <span asp-validation-for="SoLuongNhap" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DonGiaNhap" class="font-weight-semibold">Đơn Giá</label>
-                    <input asp-for="DonGiaNhap" class="form-control" disabled="@disableInputs"></input>
+                    <span class="form-control" disabled>@Cart.ConvertToVND((decimal)Model.DonGiaNhap)</span>
                     <span asp-validation-for="DonGiaNhap" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Vat" class="font-weight-semibold">VAT</label>
-                    <input asp-for="Vat" class="form-control" disabled="@disableInputs"></input>
+                    <span class="form-control" disabled>@Model.Vat</span>
                     <span asp-validation-for="Vat" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="ThanhTien" class="font-weight-semibold">Thành Tiền</label>
-                    <input asp-for="ThanhTien" class="form-control" disabled="@disableInputs"></input>
+                    <span class="form-control" disabled>@Cart.ConvertToVND((decimal)@Model.ThanhTien)</span>
                     <span asp-validation-for="ThanhTien" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="NgayNhap" class="font-weight-semibold">Ngày Nhập</label>
-                    <input asp-for="NgayNhap" class="form-control" disabled="@disableInputs"></input>
+                    <span class="form-control" disabled>@Model.NgayNhap</span>
                     <span asp-validation-for="NgayNhap" class="text-danger"></span>
                 </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

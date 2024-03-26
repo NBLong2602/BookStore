@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/InventoryManager/Views/Shared/_LayoutDashBroad.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDashBroad.cshtml";
     int Index = 1;
 }
 
@@ -18,9 +18,9 @@
         <div class="page-header">
             <div class="header-sub-title">
                 <nav class="breadcrumb breadcrumb-dash">
-                    <a class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-                    <a class="breadcrumb-item">Quản Lý Nhập Hàng</a>
-                    <span class="breadcrumb-item active" href="#">Lịch sử nhập hàng</span>
+                    <a class="breadcrumb-item" asp-action="Index" asp-controller="HomeInventory"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                    <a class="breadcrumb-item" asp-action="Index" asp-controller="HomeInventory">Quản Lý Tồn Kho</a>
+                    <span class="breadcrumb-item active" href="#">Lịch Sử Nhập Hàng</span>
                 </nav>
             </div>
         </div>
@@ -29,24 +29,24 @@
                 <div class="row m-b-30">
                     <div class="col-lg-8">
                         <div class="d-md-flex">
-                            <div class="m-b-10">
+                            @* <div class="m-b-10">
                                 <select class="custom-select" style="min-width: 180px;">
                                     <option selected>Tất Cả</option>
                                     <option value="inStock">Còn Hàng</option>
                                     <option value="inStock">Sắp Hết</option>
                                     <option value="outOfStock">Hết Hàng</option>
                                 </select>
-                            </div>
+                            </div> *@
                         </div>
                     </div>
-                    <div class="col-lg-4 text-right">
+                    @* <div class="col-lg-4 text-right">
                         <a asp-action="AddOrder" asp-controller="Order" asp-area="InventoryManager">
                             <button class="btn btn-primary">
                                 <i class="anticon anticon-plus-circle m-r-5"></i>
-                                <span>Tạo Đơn Nhập Hàng</span>
+                                <span>Thêm Sản Phẩm</span>
                             </button>
                         </a>
-                    </div>
+                    </div> *@
                 </div>
                 <div class="table-responsive" style="overflow-x:unset">
                     <table class="table table-hover e-commerce-table" id="data-table">
@@ -92,32 +92,27 @@
                                                 Thao Tác
                                             </button>
                                             <div class="dropdown-menu">
-                                                
-                                                <button class="dropdown-item" type="button"><a data-toggle="modal" data-target="#Modal_@item.Id" class="dropdown-item">
-                                                    <i class="anticon anticon-profile" style="margin-right: 10px;"></i>Xem đơn nhập</a></button>
-                                                @if (item.TrangThaiDuyet == 0)
-                                                {
-                                                    <button class="dropdown-item" type="button">
-                                                        <a data-toggle="modal" data-target="#Modal_@item.Id" class="dropdown-item">
-                                                            <i class="anticon anticon-edit" style="margin-right: 10px;"></i>
-                                                            Chỉnh sửa
-                                                        </a>
+                                                <div class="dropdown">
+                                                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#Modal_@item.Id">
+                                                        <i class="anticon anticon-delete" style="margin-right: 10px;"></i>Xem đơn
                                                     </button>
-
-                                                    <button class="dropdown-item" type="button">
-                                                        <a asp-area="InventoryManager" asp-controller="Order" asp-action="CancelById" asp-route-khoId="@item.Id" class="dropdown-item">
-                                                            <i class="anticon anticon-delete" style="margin-right: 10px;"></i>Hủy đơn nhập
-                                                        </a>
-                                                    </button>
-                                                }
-
+                                                    <a asp-area="Admin" asp-controller="InventoryManager" asp-action="AcceptOrder" asp-route-OrderId="@item.Id" class="dropdown-item">
+                                                        <button class="dropdown-item" type="button">
+                                                            <i class="anticon anticon-delete" style="margin-right: 10px;"></i>Duyệt đơn
+                                                        </button>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="InventoryManager" asp-action="RejectOrder" asp-route-OrderId="@item.Id" class="dropdown-item">
+                                                        <button class="dropdown-item" type="button">
+                                                            <i class="anticon anticon-delete" style="margin-right: 10px;"></i>Từ chối nhập
+                                                        </button>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                // Form Update Data
                                 <div class="modal fade" id="Modal_@item.Id">
-                                    <partial name="NhapHangPartial" model="item" />
+                                    <partial name="_PartialDetailInventory" model="item" />
                                 </div>
                             }
                         </tbody>
@@ -149,7 +144,6 @@
     <script>
         $('#data-table').DataTable();
     </script>
-
 }
 @functions {
     public (string classString, string displayText) GetStatusInfo(int? trangThaiDuyet)

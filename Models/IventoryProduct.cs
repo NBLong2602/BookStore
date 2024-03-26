@@ -7,7 +7,7 @@ public partial class IventoryProduct
 {
     public int Id { get; set; }
 
-    public int? MaSach { get; set; }
+    public int MaSach { get; set; }
 
     public int? SoLuongNhap { get; set; }
 

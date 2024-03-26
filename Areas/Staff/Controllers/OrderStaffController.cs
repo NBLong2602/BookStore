@@ -49,7 +49,10 @@ namespace BookStore.Areas.Staff.Controllers
         [Route("Accept")]
         public IActionResult AcceptOrder(int orderId)
         {
-            var order = _context.OrderInfos.Where(x => x.Id.Equals(orderId)).FirstOrDefault();
+            var order = _context.OrderInfos
+                        .Include(o => o.OrderDetails) // Nạp danh sách các chi tiết đơn hàng
+                            .ThenInclude(od => od.BookIsbnNavigation)
+                        .Where(x => x.Id.Equals(orderId)).FirstOrDefault();
             if (order.Id != orderId)
             {
                 return RedirectToAction("OrderList");
@@ -58,9 +61,22 @@ namespace BookStore.Areas.Staff.Controllers
             {
                 var EmployeeId = HttpContext.Session.GetString("AccountId");
                 order.EmployeeId = int.Parse(EmployeeId);
-                _context.OrderInfos.Update(order);
+                var lstBookIsbn = order.OrderDetails.Select(item => item.BookIsbn).ToList();
+                var booksToUpdate = _context.Books.Where(book => lstBookIsbn.Contains(book.Isbn)).ToList();
+
+                foreach (var item in order.OrderDetails)
+                {
+                    var book = booksToUpdate.FirstOrDefault(x => x.Isbn == item.BookIsbn);
+                    if (book != null)
+                    {
+                        book.Stock -= (int)item.Quantity;
+                    }
+                }
+                _context.UpdateRange(booksToUpdate);
+                _context.Update(order);
                 _context.SaveChanges();
                 return RedirectToAction("OrderList");
+
             }
 
         }
@@ -76,5 +92,16 @@ namespace BookStore.Areas.Staff.Controllers
             return View(order);
         }
 
+        [Route("")]
+        [Route("ListProduct")]
+        public IActionResult ListProduct()
+        {
+            var lstProduct = _context.Books
+                               .AsNoTracking()
+                               .Include(categories => categories.BookCategory)
+                               .OrderBy(x => x.Isbn)
+                               .ToList();
+            return View(lstProduct);
+        }
     }
 }

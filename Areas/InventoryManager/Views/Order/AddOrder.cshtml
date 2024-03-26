@@ -1,0 +1,60 @@
+﻿@model BookStore.Models.IventoryProduct
+
+@{
+    ViewData["Title"] = "AddOrder";
+    Layout = "~/Areas/InventoryManager/Views/Shared/_LayoutDashBroad.cshtml";
+}
+<div class="page-container">
+
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+<div class="card">
+    <div class="card-body">
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddOrder" asp-controller="Order" asp-area="InventoryManager" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaSach" class="control-label">Tên sách</label>
+                <select asp-for="MaSach" class ="form-control" asp-items="ViewBag.MaSach"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuongNhap" class="control-label">Số Lượng Nhập</label>
+                <input asp-for="SoLuongNhap" class="form-control" />
+                <span asp-validation-for="SoLuongNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DonGiaNhap" class="control-label">Đơn Giá</label>
+                <input asp-for="DonGiaNhap" class="form-control" />
+                <span asp-validation-for="DonGiaNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vat" class="control-label">VAT</label>
+                <input asp-for="Vat" class="form-control" />
+                <span asp-validation-for="Vat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThanhTien" class="control-label">Thành Tiền</label>
+                <input asp-for="ThanhTien" class="form-control" />
+                <span asp-validation-for="ThanhTien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayNhap" class="control-label">Ngày Nhập</label>
+                <input asp-for="NgayNhap" class="form-control" />
+                <span asp-validation-for="NgayNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+</div>
+        </div>
+    </div>
+</div>
+
